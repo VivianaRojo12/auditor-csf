@@ -1,0 +1,29 @@
+sequenceDiagram
+  participant Web
+  participant C1 as C1 API
+  participant C2 as C2 Orquestación
+  participant C3 as C3 Guardrails
+  participant C4 as C4 Caché
+  participant C6 as C6 Enrutador/Gateway
+  participant C5 as C5 Contexto (RAG)
+  participant C7 as C7 Ollama
+  participant T1 as T1 Observabilidad
+  Web->>C1: POST /auditorias (documento)
+  C1->>C2: analizar_seccion(s)
+  C2->>T1: crear traza
+  C2->>C3: verificar_entrada
+  C3-->>C2: aprobada (saneada)
+  C2->>C4: buscar(exacta/semántica)
+  C4-->>C2: ninguna
+  C2->>C6: clasificar ruta
+  C2->>C5: recuperar controles
+  C5->>C7: embeber consulta
+  C5-->>C2: fragmentos + fuentes
+  C2->>C6: generar (ruta elegida)
+  C6->>C7: chat(modelo, prompt)
+  C7-->>C6: JSON hallazgos
+  C2->>C3: verificar_salida (fuentes válidas)
+  C2->>C4: guardar resultado
+  C2->>T1: registrar métricas
+  C2-->>C1: hallazgos + fuentes + traza
+  C1-->>Web: informe

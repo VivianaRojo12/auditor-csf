@@ -1,0 +1,12 @@
+graph TB
+  subgraph laptop["Laptop (Windows 11, Core Ultra 5, 32 GB RAM)"]
+    p1["Proceso web<br/>python servidor_web.py<br/>:8080"]
+    p2["Proceso servicio<br/>uvicorn :8000"]
+    p3["Proceso Ollama<br/>:11434"]
+    d1[("./datos_runtime/chroma")]
+    d2[("./datos_runtime/*.db")]
+  end
+  p1 -->|":8000"| p2
+  p2 -->|":11434"| p3
+  p2 --> d1
+  p2 --> d2

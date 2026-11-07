@@ -1,0 +1,9 @@
+graph TB
+  analista["Responsable de seguridad<br/>(infraestructura crítica)"]
+  sistema["Auditor de políticas<br/>contra NIST CSF 2.0"]
+  corpus[("Catálogo NIST SP 800-53 Rev. 5<br/>(dominio público)")]
+  ollama["Servidor de modelos local<br/>(Ollama)"]
+  analista -->|"carga política / consulta"| sistema
+  sistema -->|"informe de brechas con fuentes"| analista
+  sistema -->|"recupera controles"| corpus
+  sistema -->|"embeddings y generación"| ollama

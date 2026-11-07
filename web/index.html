@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auditor de políticas · NIST CSF 2.0</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <header>
+    <div class="marca">
+      <span class="logo">A-CSF</span>
+      <div>
+        <h1>Auditor de políticas de seguridad</h1>
+        <p class="sub">Análisis contra NIST SP 800-53 Rev. 5, organizado por las funciones del CSF 2.0</p>
+      </div>
+    </div>
+    <div id="estado-servicio" class="estado" title="Estado del servicio">Verificando…</div>
+  </header>
+
+  <nav class="pestanas">
+    <button class="pestana activa" data-vista="auditar">Auditoría</button>
+    <button class="pestana" data-vista="consultar">Consulta</button>
+    <button class="pestana" data-vista="metricas">Métricas</button>
+    <button class="pestana" data-vista="corpus">Corpus</button>
+  </nav>
+
+  <main>
+    <!-- Vista auditar -->
+    <section id="vista-auditar" class="vista activa">
+      <div class="cargador" id="cargador">
+        <p>Arrastra una política o procedimiento (PDF, DOCX, Markdown o texto) o selecciónalo.</p>
+        <input type="file" id="archivo" accept=".pdf,.docx,.md,.markdown,.txt">
+        <button id="btn-auditar" class="primario" disabled>Auditar documento</button>
+        <div class="ejemplos">
+          <span>¿Sin archivo a la mano?</span>
+          <button id="btn-ejemplo" class="enlace">Usar la política de ejemplo</button>
+        </div>
+      </div>
+      <div id="progreso" class="oculto"><div class="barra-indef"></div><span id="progreso-txt">Analizando…</span></div>
+      <div id="informe" class="oculto"></div>
+    </section>
+
+    <!-- Vista consultar -->
+    <section id="vista-consultar" class="vista">
+      <p class="ayuda">Pregunta puntual sobre los controles del corpus (función secundaria). Las respuestas citan sus fuentes.</p>
+      <div class="fila">
+        <input type="text" id="pregunta" placeholder="¿Qué exige el control de respuesta a incidentes?">
+        <button id="btn-preguntar" class="primario">Preguntar</button>
+      </div>
+      <div id="respuesta-consulta" class="oculto"></div>
+    </section>
+
+    <!-- Vista métricas -->
+    <section id="vista-metricas" class="vista">
+      <div class="fila-entre">
+        <h2>Observabilidad</h2>
+        <button id="btn-refrescar" class="secundario">Actualizar</button>
+      </div>
+      <div id="metricas"></div>
+    </section>
+
+    <!-- Vista corpus -->
+    <section id="vista-corpus" class="vista">
+      <h2>Base de conocimiento</h2>
+      <p class="ayuda">Documentos de referencia indexados. La API expone su documentación en
+        <a id="enlace-docs" href="#" target="_blank">/docs</a> (OpenAPI).</p>
+      <div id="corpus"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Las respuestas son generadas por un modelo de lenguaje y pueden contener errores. Verifica cada
+      hallazgo contra el control citado antes de tomar decisiones.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

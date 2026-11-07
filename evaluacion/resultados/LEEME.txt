@@ -1,0 +1,1 @@
+Los resultados de la evaluación se generan al ejecutar 'python -m evaluacion.ejecutar_todo' en el equipo local.

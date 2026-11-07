@@ -1,0 +1,1813 @@
+{
+  "fuente": "NIST SP 800-53 5.2.0",
+  "licencia": "Dominio público (CC0 1.0)",
+  "total": 301,
+  "controles": [
+    {
+      "control": "AC-1",
+      "familia": "AC",
+      "titulo": "Policy and Procedures",
+      "funcion": "PR"
+    },
+    {
+      "control": "AC-2",
+      "familia": "AC",
+      "titulo": "Account Management",
+      "funcion": "PR"
+    },
+    {
+      "control": "AC-3",
+      "familia": "AC",
+      "titulo": "Access Enforcement",
+      "funcion": "PR"
+    },
+    {
+      "control": "AC-4",
+      "familia": "AC",
+      "titulo": "Information Flow Enforcement",
+      "funcion": "PR"
+    },
+    {
+      "control": "AC-5",
+      "familia": "AC",
+      "titulo": "Separation of Duties",
+      "funcion": "PR"
+    },
+    {
+      "control": "AC-6",
+      "familia": "AC",
+      "titulo": "Least Privilege",
+      "funcion": "PR"
+    },
+    {
+      "control": "AC-7",
+      "familia": "AC",
+      "titulo": "Unsuccessful Logon Attempts",
+      "funcion": "PR"
+    },
+    {
+      "control": "AC-8",
+      "familia": "AC",
+      "titulo": "System Use Notification",
+      "funcion": "PR"
+    },
+    {
+      "control": "AC-9",
+      "familia": "AC",
+      "titulo": "Previous Logon Notification",
+      "funcion": "PR"
+    },
+    {
+      "control": "AC-10",
+      "familia": "AC",
+      "titulo": "Concurrent Session Control",
+      "funcion": "PR"
+    },
+    {
+      "control": "AC-11",
+      "familia": "AC",
+      "titulo": "Device Lock",
+      "funcion": "PR"
+    },
+    {
+      "control": "AC-12",
+      "familia": "AC",
+      "titulo": "Session Termination",
+      "funcion": "PR"
+    },
+    {
+      "control": "AC-14",
+      "familia": "AC",
+      "titulo": "Permitted Actions Without Identification or Authentication",
+      "funcion": "PR"
+    },
+    {
+      "control": "AC-16",
+      "familia": "AC",
+      "titulo": "Security and Privacy Attributes",
+      "funcion": "PR"
+    },
+    {
+      "control": "AC-17",
+      "familia": "AC",
+      "titulo": "Remote Access",
+      "funcion": "PR"
+    },
+    {
+      "control": "AC-18",
+      "familia": "AC",
+      "titulo": "Wireless Access",
+      "funcion": "PR"
+    },
+    {
+      "control": "AC-19",
+      "familia": "AC",
+      "titulo": "Access Control for Mobile Devices",
+      "funcion": "PR"
+    },
+    {
+      "control": "AC-20",
+      "familia": "AC",
+      "titulo": "Use of External Systems",
+      "funcion": "PR"
+    },
+    {
+      "control": "AC-21",
+      "familia": "AC",
+      "titulo": "Information Sharing",
+      "funcion": "PR"
+    },
+    {
+      "control": "AC-22",
+      "familia": "AC",
+      "titulo": "Publicly Accessible Content",
+      "funcion": "PR"
+    },
+    {
+      "control": "AC-23",
+      "familia": "AC",
+      "titulo": "Data Mining Protection",
+      "funcion": "PR"
+    },
+    {
+      "control": "AC-24",
+      "familia": "AC",
+      "titulo": "Access Control Decisions",
+      "funcion": "PR"
+    },
+    {
+      "control": "AC-25",
+      "familia": "AC",
+      "titulo": "Reference Monitor",
+      "funcion": "PR"
+    },
+    {
+      "control": "AT-1",
+      "familia": "AT",
+      "titulo": "Policy and Procedures",
+      "funcion": "PR"
+    },
+    {
+      "control": "AT-2",
+      "familia": "AT",
+      "titulo": "Literacy Training and Awareness",
+      "funcion": "PR"
+    },
+    {
+      "control": "AT-3",
+      "familia": "AT",
+      "titulo": "Role-based Training",
+      "funcion": "PR"
+    },
+    {
+      "control": "AT-4",
+      "familia": "AT",
+      "titulo": "Training Records",
+      "funcion": "PR"
+    },
+    {
+      "control": "AT-6",
+      "familia": "AT",
+      "titulo": "Training Feedback",
+      "funcion": "PR"
+    },
+    {
+      "control": "AU-1",
+      "familia": "AU",
+      "titulo": "Policy and Procedures",
+      "funcion": "DE"
+    },
+    {
+      "control": "AU-2",
+      "familia": "AU",
+      "titulo": "Event Logging",
+      "funcion": "DE"
+    },
+    {
+      "control": "AU-3",
+      "familia": "AU",
+      "titulo": "Content of Audit Records",
+      "funcion": "DE"
+    },
+    {
+      "control": "AU-4",
+      "familia": "AU",
+      "titulo": "Audit Log Storage Capacity",
+      "funcion": "DE"
+    },
+    {
+      "control": "AU-5",
+      "familia": "AU",
+      "titulo": "Response to Audit Logging Process Failures",
+      "funcion": "DE"
+    },
+    {
+      "control": "AU-6",
+      "familia": "AU",
+      "titulo": "Audit Record Review, Analysis, and Reporting",
+      "funcion": "DE"
+    },
+    {
+      "control": "AU-7",
+      "familia": "AU",
+      "titulo": "Audit Record Reduction and Report Generation",
+      "funcion": "DE"
+    },
+    {
+      "control": "AU-8",
+      "familia": "AU",
+      "titulo": "Time Stamps",
+      "funcion": "DE"
+    },
+    {
+      "control": "AU-9",
+      "familia": "AU",
+      "titulo": "Protection of Audit Information",
+      "funcion": "DE"
+    },
+    {
+      "control": "AU-10",
+      "familia": "AU",
+      "titulo": "Non-repudiation",
+      "funcion": "DE"
+    },
+    {
+      "control": "AU-11",
+      "familia": "AU",
+      "titulo": "Audit Record Retention",
+      "funcion": "DE"
+    },
+    {
+      "control": "AU-12",
+      "familia": "AU",
+      "titulo": "Audit Record Generation",
+      "funcion": "DE"
+    },
+    {
+      "control": "AU-13",
+      "familia": "AU",
+      "titulo": "Monitoring for Information Disclosure",
+      "funcion": "DE"
+    },
+    {
+      "control": "AU-14",
+      "familia": "AU",
+      "titulo": "Session Audit",
+      "funcion": "DE"
+    },
+    {
+      "control": "AU-16",
+      "familia": "AU",
+      "titulo": "Cross-organizational Audit Logging",
+      "funcion": "DE"
+    },
+    {
+      "control": "CA-1",
+      "familia": "CA",
+      "titulo": "Policy and Procedures",
+      "funcion": "GV"
+    },
+    {
+      "control": "CA-2",
+      "familia": "CA",
+      "titulo": "Control Assessments",
+      "funcion": "GV"
+    },
+    {
+      "control": "CA-3",
+      "familia": "CA",
+      "titulo": "Information Exchange",
+      "funcion": "GV"
+    },
+    {
+      "control": "CA-5",
+      "familia": "CA",
+      "titulo": "Plan of Action and Milestones",
+      "funcion": "GV"
+    },
+    {
+      "control": "CA-6",
+      "familia": "CA",
+      "titulo": "Authorization",
+      "funcion": "GV"
+    },
+    {
+      "control": "CA-7",
+      "familia": "CA",
+      "titulo": "Continuous Monitoring",
+      "funcion": "GV"
+    },
+    {
+      "control": "CA-8",
+      "familia": "CA",
+      "titulo": "Penetration Testing",
+      "funcion": "GV"
+    },
+    {
+      "control": "CA-9",
+      "familia": "CA",
+      "titulo": "Internal System Connections",
+      "funcion": "GV"
+    },
+    {
+      "control": "CM-1",
+      "familia": "CM",
+      "titulo": "Policy and Procedures",
+      "funcion": "ID"
+    },
+    {
+      "control": "CM-2",
+      "familia": "CM",
+      "titulo": "Baseline Configuration",
+      "funcion": "ID"
+    },
+    {
+      "control": "CM-3",
+      "familia": "CM",
+      "titulo": "Configuration Change Control",
+      "funcion": "ID"
+    },
+    {
+      "control": "CM-4",
+      "familia": "CM",
+      "titulo": "Impact Analyses",
+      "funcion": "ID"
+    },
+    {
+      "control": "CM-5",
+      "familia": "CM",
+      "titulo": "Access Restrictions for Change",
+      "funcion": "ID"
+    },
+    {
+      "control": "CM-6",
+      "familia": "CM",
+      "titulo": "Configuration Settings",
+      "funcion": "ID"
+    },
+    {
+      "control": "CM-7",
+      "familia": "CM",
+      "titulo": "Least Functionality",
+      "funcion": "ID"
+    },
+    {
+      "control": "CM-8",
+      "familia": "CM",
+      "titulo": "System Component Inventory",
+      "funcion": "ID"
+    },
+    {
+      "control": "CM-9",
+      "familia": "CM",
+      "titulo": "Configuration Management Plan",
+      "funcion": "ID"
+    },
+    {
+      "control": "CM-10",
+      "familia": "CM",
+      "titulo": "Software Usage Restrictions",
+      "funcion": "ID"
+    },
+    {
+      "control": "CM-11",
+      "familia": "CM",
+      "titulo": "User-installed Software",
+      "funcion": "ID"
+    },
+    {
+      "control": "CM-12",
+      "familia": "CM",
+      "titulo": "Information Location",
+      "funcion": "ID"
+    },
+    {
+      "control": "CM-13",
+      "familia": "CM",
+      "titulo": "Data Action Mapping",
+      "funcion": "ID"
+    },
+    {
+      "control": "CM-14",
+      "familia": "CM",
+      "titulo": "Signed Components",
+      "funcion": "ID"
+    },
+    {
+      "control": "CP-1",
+      "familia": "CP",
+      "titulo": "Policy and Procedures",
+      "funcion": "RC"
+    },
+    {
+      "control": "CP-2",
+      "familia": "CP",
+      "titulo": "Contingency Plan",
+      "funcion": "RC"
+    },
+    {
+      "control": "CP-3",
+      "familia": "CP",
+      "titulo": "Contingency Training",
+      "funcion": "RC"
+    },
+    {
+      "control": "CP-4",
+      "familia": "CP",
+      "titulo": "Contingency Plan Testing",
+      "funcion": "RC"
+    },
+    {
+      "control": "CP-6",
+      "familia": "CP",
+      "titulo": "Alternate Storage Site",
+      "funcion": "RC"
+    },
+    {
+      "control": "CP-7",
+      "familia": "CP",
+      "titulo": "Alternate Processing Site",
+      "funcion": "RC"
+    },
+    {
+      "control": "CP-8",
+      "familia": "CP",
+      "titulo": "Telecommunications Services",
+      "funcion": "RC"
+    },
+    {
+      "control": "CP-9",
+      "familia": "CP",
+      "titulo": "System Backup",
+      "funcion": "RC"
+    },
+    {
+      "control": "CP-10",
+      "familia": "CP",
+      "titulo": "System Recovery and Reconstitution",
+      "funcion": "RC"
+    },
+    {
+      "control": "CP-11",
+      "familia": "CP",
+      "titulo": "Alternate Communications Protocols",
+      "funcion": "RC"
+    },
+    {
+      "control": "CP-12",
+      "familia": "CP",
+      "titulo": "Safe Mode",
+      "funcion": "RC"
+    },
+    {
+      "control": "CP-13",
+      "familia": "CP",
+      "titulo": "Alternative Security Mechanisms",
+      "funcion": "RC"
+    },
+    {
+      "control": "IA-1",
+      "familia": "IA",
+      "titulo": "Policy and Procedures",
+      "funcion": "PR"
+    },
+    {
+      "control": "IA-2",
+      "familia": "IA",
+      "titulo": "Identification and Authentication (Organizational Users)",
+      "funcion": "PR"
+    },
+    {
+      "control": "IA-3",
+      "familia": "IA",
+      "titulo": "Device Identification and Authentication",
+      "funcion": "PR"
+    },
+    {
+      "control": "IA-4",
+      "familia": "IA",
+      "titulo": "Identifier Management",
+      "funcion": "PR"
+    },
+    {
+      "control": "IA-5",
+      "familia": "IA",
+      "titulo": "Authenticator Management",
+      "funcion": "PR"
+    },
+    {
+      "control": "IA-6",
+      "familia": "IA",
+      "titulo": "Authentication Feedback",
+      "funcion": "PR"
+    },
+    {
+      "control": "IA-7",
+      "familia": "IA",
+      "titulo": "Cryptographic Module Authentication",
+      "funcion": "PR"
+    },
+    {
+      "control": "IA-8",
+      "familia": "IA",
+      "titulo": "Identification and Authentication (Non-organizational Users)",
+      "funcion": "PR"
+    },
+    {
+      "control": "IA-9",
+      "familia": "IA",
+      "titulo": "Service Identification and Authentication",
+      "funcion": "PR"
+    },
+    {
+      "control": "IA-10",
+      "familia": "IA",
+      "titulo": "Adaptive Authentication",
+      "funcion": "PR"
+    },
+    {
+      "control": "IA-11",
+      "familia": "IA",
+      "titulo": "Re-authentication",
+      "funcion": "PR"
+    },
+    {
+      "control": "IA-12",
+      "familia": "IA",
+      "titulo": "Identity Proofing",
+      "funcion": "PR"
+    },
+    {
+      "control": "IA-13",
+      "familia": "IA",
+      "titulo": "Identity Providers and Authorization Servers",
+      "funcion": "PR"
+    },
+    {
+      "control": "IR-1",
+      "familia": "IR",
+      "titulo": "Policy and Procedures",
+      "funcion": "RS"
+    },
+    {
+      "control": "IR-2",
+      "familia": "IR",
+      "titulo": "Incident Response Training",
+      "funcion": "RS"
+    },
+    {
+      "control": "IR-3",
+      "familia": "IR",
+      "titulo": "Incident Response Testing",
+      "funcion": "RS"
+    },
+    {
+      "control": "IR-4",
+      "familia": "IR",
+      "titulo": "Incident Handling",
+      "funcion": "RS"
+    },
+    {
+      "control": "IR-5",
+      "familia": "IR",
+      "titulo": "Incident Monitoring",
+      "funcion": "RS"
+    },
+    {
+      "control": "IR-6",
+      "familia": "IR",
+      "titulo": "Incident Reporting",
+      "funcion": "RS"
+    },
+    {
+      "control": "IR-7",
+      "familia": "IR",
+      "titulo": "Incident Response Assistance",
+      "funcion": "RS"
+    },
+    {
+      "control": "IR-8",
+      "familia": "IR",
+      "titulo": "Incident Response Plan",
+      "funcion": "RS"
+    },
+    {
+      "control": "IR-9",
+      "familia": "IR",
+      "titulo": "Information Spillage Response",
+      "funcion": "RS"
+    },
+    {
+      "control": "MA-1",
+      "familia": "MA",
+      "titulo": "Policy and Procedures",
+      "funcion": "PR"
+    },
+    {
+      "control": "MA-2",
+      "familia": "MA",
+      "titulo": "Controlled Maintenance",
+      "funcion": "PR"
+    },
+    {
+      "control": "MA-3",
+      "familia": "MA",
+      "titulo": "Maintenance Tools",
+      "funcion": "PR"
+    },
+    {
+      "control": "MA-4",
+      "familia": "MA",
+      "titulo": "Nonlocal Maintenance",
+      "funcion": "PR"
+    },
+    {
+      "control": "MA-5",
+      "familia": "MA",
+      "titulo": "Maintenance Personnel",
+      "funcion": "PR"
+    },
+    {
+      "control": "MA-6",
+      "familia": "MA",
+      "titulo": "Timely Maintenance",
+      "funcion": "PR"
+    },
+    {
+      "control": "MA-7",
+      "familia": "MA",
+      "titulo": "Field Maintenance",
+      "funcion": "PR"
+    },
+    {
+      "control": "MP-1",
+      "familia": "MP",
+      "titulo": "Policy and Procedures",
+      "funcion": "PR"
+    },
+    {
+      "control": "MP-2",
+      "familia": "MP",
+      "titulo": "Media Access",
+      "funcion": "PR"
+    },
+    {
+      "control": "MP-3",
+      "familia": "MP",
+      "titulo": "Media Marking",
+      "funcion": "PR"
+    },
+    {
+      "control": "MP-4",
+      "familia": "MP",
+      "titulo": "Media Storage",
+      "funcion": "PR"
+    },
+    {
+      "control": "MP-5",
+      "familia": "MP",
+      "titulo": "Media Transport",
+      "funcion": "PR"
+    },
+    {
+      "control": "MP-6",
+      "familia": "MP",
+      "titulo": "Media Sanitization",
+      "funcion": "PR"
+    },
+    {
+      "control": "MP-7",
+      "familia": "MP",
+      "titulo": "Media Use",
+      "funcion": "PR"
+    },
+    {
+      "control": "MP-8",
+      "familia": "MP",
+      "titulo": "Media Downgrading",
+      "funcion": "PR"
+    },
+    {
+      "control": "PE-1",
+      "familia": "PE",
+      "titulo": "Policy and Procedures",
+      "funcion": "ID"
+    },
+    {
+      "control": "PE-2",
+      "familia": "PE",
+      "titulo": "Physical Access Authorizations",
+      "funcion": "ID"
+    },
+    {
+      "control": "PE-3",
+      "familia": "PE",
+      "titulo": "Physical Access Control",
+      "funcion": "ID"
+    },
+    {
+      "control": "PE-4",
+      "familia": "PE",
+      "titulo": "Access Control for Transmission",
+      "funcion": "ID"
+    },
+    {
+      "control": "PE-5",
+      "familia": "PE",
+      "titulo": "Access Control for Output Devices",
+      "funcion": "ID"
+    },
+    {
+      "control": "PE-6",
+      "familia": "PE",
+      "titulo": "Monitoring Physical Access",
+      "funcion": "ID"
+    },
+    {
+      "control": "PE-8",
+      "familia": "PE",
+      "titulo": "Visitor Access Records",
+      "funcion": "ID"
+    },
+    {
+      "control": "PE-9",
+      "familia": "PE",
+      "titulo": "Power Equipment and Cabling",
+      "funcion": "ID"
+    },
+    {
+      "control": "PE-10",
+      "familia": "PE",
+      "titulo": "Emergency Shutoff",
+      "funcion": "ID"
+    },
+    {
+      "control": "PE-11",
+      "familia": "PE",
+      "titulo": "Emergency Power",
+      "funcion": "ID"
+    },
+    {
+      "control": "PE-12",
+      "familia": "PE",
+      "titulo": "Emergency Lighting",
+      "funcion": "ID"
+    },
+    {
+      "control": "PE-13",
+      "familia": "PE",
+      "titulo": "Fire Protection",
+      "funcion": "ID"
+    },
+    {
+      "control": "PE-14",
+      "familia": "PE",
+      "titulo": "Environmental Controls",
+      "funcion": "ID"
+    },
+    {
+      "control": "PE-15",
+      "familia": "PE",
+      "titulo": "Water Damage Protection",
+      "funcion": "ID"
+    },
+    {
+      "control": "PE-16",
+      "familia": "PE",
+      "titulo": "Delivery and Removal",
+      "funcion": "ID"
+    },
+    {
+      "control": "PE-17",
+      "familia": "PE",
+      "titulo": "Alternate Work Site",
+      "funcion": "ID"
+    },
+    {
+      "control": "PE-18",
+      "familia": "PE",
+      "titulo": "Location of System Components",
+      "funcion": "ID"
+    },
+    {
+      "control": "PE-19",
+      "familia": "PE",
+      "titulo": "Information Leakage",
+      "funcion": "ID"
+    },
+    {
+      "control": "PE-20",
+      "familia": "PE",
+      "titulo": "Asset Monitoring and Tracking",
+      "funcion": "ID"
+    },
+    {
+      "control": "PE-21",
+      "familia": "PE",
+      "titulo": "Electromagnetic Pulse Protection",
+      "funcion": "ID"
+    },
+    {
+      "control": "PE-22",
+      "familia": "PE",
+      "titulo": "Component Marking",
+      "funcion": "ID"
+    },
+    {
+      "control": "PE-23",
+      "familia": "PE",
+      "titulo": "Facility Location",
+      "funcion": "ID"
+    },
+    {
+      "control": "PL-1",
+      "familia": "PL",
+      "titulo": "Policy and Procedures",
+      "funcion": "GV"
+    },
+    {
+      "control": "PL-2",
+      "familia": "PL",
+      "titulo": "System Security and Privacy Plans",
+      "funcion": "GV"
+    },
+    {
+      "control": "PL-4",
+      "familia": "PL",
+      "titulo": "Rules of Behavior",
+      "funcion": "GV"
+    },
+    {
+      "control": "PL-7",
+      "familia": "PL",
+      "titulo": "Concept of Operations",
+      "funcion": "GV"
+    },
+    {
+      "control": "PL-8",
+      "familia": "PL",
+      "titulo": "Security and Privacy Architectures",
+      "funcion": "GV"
+    },
+    {
+      "control": "PL-9",
+      "familia": "PL",
+      "titulo": "Central Management",
+      "funcion": "GV"
+    },
+    {
+      "control": "PL-10",
+      "familia": "PL",
+      "titulo": "Baseline Selection",
+      "funcion": "GV"
+    },
+    {
+      "control": "PL-11",
+      "familia": "PL",
+      "titulo": "Baseline Tailoring",
+      "funcion": "GV"
+    },
+    {
+      "control": "PM-1",
+      "familia": "PM",
+      "titulo": "Information Security Program Plan",
+      "funcion": "GV"
+    },
+    {
+      "control": "PM-2",
+      "familia": "PM",
+      "titulo": "Information Security Program Leadership Role",
+      "funcion": "GV"
+    },
+    {
+      "control": "PM-3",
+      "familia": "PM",
+      "titulo": "Information Security and Privacy Resources",
+      "funcion": "GV"
+    },
+    {
+      "control": "PM-4",
+      "familia": "PM",
+      "titulo": "Plan of Action and Milestones Process",
+      "funcion": "GV"
+    },
+    {
+      "control": "PM-5",
+      "familia": "PM",
+      "titulo": "System Inventory",
+      "funcion": "GV"
+    },
+    {
+      "control": "PM-6",
+      "familia": "PM",
+      "titulo": "Measures of Performance",
+      "funcion": "GV"
+    },
+    {
+      "control": "PM-7",
+      "familia": "PM",
+      "titulo": "Enterprise Architecture",
+      "funcion": "GV"
+    },
+    {
+      "control": "PM-8",
+      "familia": "PM",
+      "titulo": "Critical Infrastructure Plan",
+      "funcion": "GV"
+    },
+    {
+      "control": "PM-9",
+      "familia": "PM",
+      "titulo": "Risk Management Strategy",
+      "funcion": "GV"
+    },
+    {
+      "control": "PM-10",
+      "familia": "PM",
+      "titulo": "Authorization Process",
+      "funcion": "GV"
+    },
+    {
+      "control": "PM-11",
+      "familia": "PM",
+      "titulo": "Mission and Business Process Definition",
+      "funcion": "GV"
+    },
+    {
+      "control": "PM-12",
+      "familia": "PM",
+      "titulo": "Insider Threat Program",
+      "funcion": "GV"
+    },
+    {
+      "control": "PM-13",
+      "familia": "PM",
+      "titulo": "Security and Privacy Workforce",
+      "funcion": "GV"
+    },
+    {
+      "control": "PM-14",
+      "familia": "PM",
+      "titulo": "Testing, Training, and Monitoring",
+      "funcion": "GV"
+    },
+    {
+      "control": "PM-15",
+      "familia": "PM",
+      "titulo": "Security and Privacy Groups and Associations",
+      "funcion": "GV"
+    },
+    {
+      "control": "PM-16",
+      "familia": "PM",
+      "titulo": "Threat Awareness Program",
+      "funcion": "GV"
+    },
+    {
+      "control": "PM-17",
+      "familia": "PM",
+      "titulo": "Protecting Controlled Unclassified Information on External Systems",
+      "funcion": "GV"
+    },
+    {
+      "control": "PM-18",
+      "familia": "PM",
+      "titulo": "Privacy Program Plan",
+      "funcion": "GV"
+    },
+    {
+      "control": "PM-19",
+      "familia": "PM",
+      "titulo": "Privacy Program Leadership Role",
+      "funcion": "GV"
+    },
+    {
+      "control": "PM-20",
+      "familia": "PM",
+      "titulo": "Dissemination of Privacy Program Information",
+      "funcion": "GV"
+    },
+    {
+      "control": "PM-21",
+      "familia": "PM",
+      "titulo": "Accounting of Disclosures",
+      "funcion": "GV"
+    },
+    {
+      "control": "PM-22",
+      "familia": "PM",
+      "titulo": "Personally Identifiable Information Quality Management",
+      "funcion": "GV"
+    },
+    {
+      "control": "PM-23",
+      "familia": "PM",
+      "titulo": "Data Governance Body",
+      "funcion": "GV"
+    },
+    {
+      "control": "PM-24",
+      "familia": "PM",
+      "titulo": "Data Integrity Board",
+      "funcion": "GV"
+    },
+    {
+      "control": "PM-25",
+      "familia": "PM",
+      "titulo": "Minimization of Personally Identifiable Information Used in Testing, Training, and Research",
+      "funcion": "GV"
+    },
+    {
+      "control": "PM-26",
+      "familia": "PM",
+      "titulo": "Complaint Management",
+      "funcion": "GV"
+    },
+    {
+      "control": "PM-27",
+      "familia": "PM",
+      "titulo": "Privacy Reporting",
+      "funcion": "GV"
+    },
+    {
+      "control": "PM-28",
+      "familia": "PM",
+      "titulo": "Risk Framing",
+      "funcion": "GV"
+    },
+    {
+      "control": "PM-29",
+      "familia": "PM",
+      "titulo": "Risk Management Program Leadership Roles",
+      "funcion": "GV"
+    },
+    {
+      "control": "PM-30",
+      "familia": "PM",
+      "titulo": "Supply Chain Risk Management Strategy",
+      "funcion": "GV"
+    },
+    {
+      "control": "PM-31",
+      "familia": "PM",
+      "titulo": "Continuous Monitoring Strategy",
+      "funcion": "GV"
+    },
+    {
+      "control": "PM-32",
+      "familia": "PM",
+      "titulo": "Purposing",
+      "funcion": "GV"
+    },
+    {
+      "control": "PS-1",
+      "familia": "PS",
+      "titulo": "Policy and Procedures",
+      "funcion": "PR"
+    },
+    {
+      "control": "PS-2",
+      "familia": "PS",
+      "titulo": "Position Risk Designation",
+      "funcion": "PR"
+    },
+    {
+      "control": "PS-3",
+      "familia": "PS",
+      "titulo": "Personnel Screening",
+      "funcion": "PR"
+    },
+    {
+      "control": "PS-4",
+      "familia": "PS",
+      "titulo": "Personnel Termination",
+      "funcion": "PR"
+    },
+    {
+      "control": "PS-5",
+      "familia": "PS",
+      "titulo": "Personnel Transfer",
+      "funcion": "PR"
+    },
+    {
+      "control": "PS-6",
+      "familia": "PS",
+      "titulo": "Access Agreements",
+      "funcion": "PR"
+    },
+    {
+      "control": "PS-7",
+      "familia": "PS",
+      "titulo": "External Personnel Security",
+      "funcion": "PR"
+    },
+    {
+      "control": "PS-8",
+      "familia": "PS",
+      "titulo": "Personnel Sanctions",
+      "funcion": "PR"
+    },
+    {
+      "control": "PS-9",
+      "familia": "PS",
+      "titulo": "Position Descriptions",
+      "funcion": "PR"
+    },
+    {
+      "control": "PT-1",
+      "familia": "PT",
+      "titulo": "Policy and Procedures",
+      "funcion": "GV"
+    },
+    {
+      "control": "PT-2",
+      "familia": "PT",
+      "titulo": "Authority to Process Personally Identifiable Information",
+      "funcion": "GV"
+    },
+    {
+      "control": "PT-3",
+      "familia": "PT",
+      "titulo": "Personally Identifiable Information Processing Purposes",
+      "funcion": "GV"
+    },
+    {
+      "control": "PT-4",
+      "familia": "PT",
+      "titulo": "Consent",
+      "funcion": "GV"
+    },
+    {
+      "control": "PT-5",
+      "familia": "PT",
+      "titulo": "Privacy Notice",
+      "funcion": "GV"
+    },
+    {
+      "control": "PT-6",
+      "familia": "PT",
+      "titulo": "System of Records Notice",
+      "funcion": "GV"
+    },
+    {
+      "control": "PT-7",
+      "familia": "PT",
+      "titulo": "Specific Categories of Personally Identifiable Information",
+      "funcion": "GV"
+    },
+    {
+      "control": "PT-8",
+      "familia": "PT",
+      "titulo": "Computer Matching Requirements",
+      "funcion": "GV"
+    },
+    {
+      "control": "RA-1",
+      "familia": "RA",
+      "titulo": "Policy and Procedures",
+      "funcion": "ID"
+    },
+    {
+      "control": "RA-2",
+      "familia": "RA",
+      "titulo": "Security Categorization",
+      "funcion": "ID"
+    },
+    {
+      "control": "RA-3",
+      "familia": "RA",
+      "titulo": "Risk Assessment",
+      "funcion": "ID"
+    },
+    {
+      "control": "RA-5",
+      "familia": "RA",
+      "titulo": "Vulnerability Monitoring and Scanning",
+      "funcion": "ID"
+    },
+    {
+      "control": "RA-6",
+      "familia": "RA",
+      "titulo": "Technical Surveillance Countermeasures Survey",
+      "funcion": "ID"
+    },
+    {
+      "control": "RA-7",
+      "familia": "RA",
+      "titulo": "Risk Response",
+      "funcion": "ID"
+    },
+    {
+      "control": "RA-8",
+      "familia": "RA",
+      "titulo": "Privacy Impact Assessments",
+      "funcion": "ID"
+    },
+    {
+      "control": "RA-9",
+      "familia": "RA",
+      "titulo": "Criticality Analysis",
+      "funcion": "ID"
+    },
+    {
+      "control": "RA-10",
+      "familia": "RA",
+      "titulo": "Threat Hunting",
+      "funcion": "ID"
+    },
+    {
+      "control": "SA-1",
+      "familia": "SA",
+      "titulo": "Policy and Procedures",
+      "funcion": "GV"
+    },
+    {
+      "control": "SA-2",
+      "familia": "SA",
+      "titulo": "Allocation of Resources",
+      "funcion": "GV"
+    },
+    {
+      "control": "SA-3",
+      "familia": "SA",
+      "titulo": "System Development Life Cycle",
+      "funcion": "GV"
+    },
+    {
+      "control": "SA-4",
+      "familia": "SA",
+      "titulo": "Acquisition Process",
+      "funcion": "GV"
+    },
+    {
+      "control": "SA-5",
+      "familia": "SA",
+      "titulo": "System Documentation",
+      "funcion": "GV"
+    },
+    {
+      "control": "SA-8",
+      "familia": "SA",
+      "titulo": "Security and Privacy Engineering Principles",
+      "funcion": "GV"
+    },
+    {
+      "control": "SA-9",
+      "familia": "SA",
+      "titulo": "External System Services",
+      "funcion": "GV"
+    },
+    {
+      "control": "SA-10",
+      "familia": "SA",
+      "titulo": "Developer Configuration Management",
+      "funcion": "GV"
+    },
+    {
+      "control": "SA-11",
+      "familia": "SA",
+      "titulo": "Developer Testing and Evaluation",
+      "funcion": "GV"
+    },
+    {
+      "control": "SA-15",
+      "familia": "SA",
+      "titulo": "Development Process, Standards, and Tools",
+      "funcion": "GV"
+    },
+    {
+      "control": "SA-16",
+      "familia": "SA",
+      "titulo": "Developer-provided Training",
+      "funcion": "GV"
+    },
+    {
+      "control": "SA-17",
+      "familia": "SA",
+      "titulo": "Developer Security and Privacy Architecture and Design",
+      "funcion": "GV"
+    },
+    {
+      "control": "SA-20",
+      "familia": "SA",
+      "titulo": "Customized Development of Critical Components",
+      "funcion": "GV"
+    },
+    {
+      "control": "SA-21",
+      "familia": "SA",
+      "titulo": "Developer Screening",
+      "funcion": "GV"
+    },
+    {
+      "control": "SA-22",
+      "familia": "SA",
+      "titulo": "Unsupported System Components",
+      "funcion": "GV"
+    },
+    {
+      "control": "SA-23",
+      "familia": "SA",
+      "titulo": "Specialization",
+      "funcion": "GV"
+    },
+    {
+      "control": "SA-24",
+      "familia": "SA",
+      "titulo": "Design For Cyber Resiliency",
+      "funcion": "GV"
+    },
+    {
+      "control": "SC-1",
+      "familia": "SC",
+      "titulo": "Policy and Procedures",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-2",
+      "familia": "SC",
+      "titulo": "Separation of System and User Functionality",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-3",
+      "familia": "SC",
+      "titulo": "Security Function Isolation",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-4",
+      "familia": "SC",
+      "titulo": "Information in Shared System Resources",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-5",
+      "familia": "SC",
+      "titulo": "Denial-of-service Protection",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-6",
+      "familia": "SC",
+      "titulo": "Resource Availability",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-7",
+      "familia": "SC",
+      "titulo": "Boundary Protection",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-8",
+      "familia": "SC",
+      "titulo": "Transmission Confidentiality and Integrity",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-10",
+      "familia": "SC",
+      "titulo": "Network Disconnect",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-11",
+      "familia": "SC",
+      "titulo": "Trusted Path",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-12",
+      "familia": "SC",
+      "titulo": "Cryptographic Key Establishment and Management",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-13",
+      "familia": "SC",
+      "titulo": "Cryptographic Protection",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-15",
+      "familia": "SC",
+      "titulo": "Collaborative Computing Devices and Applications",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-16",
+      "familia": "SC",
+      "titulo": "Transmission of Security and Privacy Attributes",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-17",
+      "familia": "SC",
+      "titulo": "Public Key Infrastructure Certificates",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-18",
+      "familia": "SC",
+      "titulo": "Mobile Code",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-19",
+      "familia": "SC",
+      "titulo": "Voice Over Internet Protocol",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-20",
+      "familia": "SC",
+      "titulo": "Secure Name/Address Resolution Service (Authoritative Source)",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-21",
+      "familia": "SC",
+      "titulo": "Secure Name/Address Resolution Service (Recursive or Caching Resolver)",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-22",
+      "familia": "SC",
+      "titulo": "Architecture and Provisioning for Name/Address Resolution Service",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-23",
+      "familia": "SC",
+      "titulo": "Session Authenticity",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-24",
+      "familia": "SC",
+      "titulo": "Fail in Known State",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-25",
+      "familia": "SC",
+      "titulo": "Thin Nodes",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-26",
+      "familia": "SC",
+      "titulo": "Decoys",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-27",
+      "familia": "SC",
+      "titulo": "Platform-independent Applications",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-28",
+      "familia": "SC",
+      "titulo": "Protection of Information at Rest",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-29",
+      "familia": "SC",
+      "titulo": "Heterogeneity",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-30",
+      "familia": "SC",
+      "titulo": "Concealment and Misdirection",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-31",
+      "familia": "SC",
+      "titulo": "Covert Channel Analysis",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-32",
+      "familia": "SC",
+      "titulo": "System Partitioning",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-34",
+      "familia": "SC",
+      "titulo": "Non-modifiable Executable Programs",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-35",
+      "familia": "SC",
+      "titulo": "External Malicious Code Identification",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-36",
+      "familia": "SC",
+      "titulo": "Distributed Processing and Storage",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-37",
+      "familia": "SC",
+      "titulo": "Out-of-band Channels",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-38",
+      "familia": "SC",
+      "titulo": "Operations Security",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-39",
+      "familia": "SC",
+      "titulo": "Process Isolation",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-40",
+      "familia": "SC",
+      "titulo": "Wireless Link Protection",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-41",
+      "familia": "SC",
+      "titulo": "Port and I/O Device Access",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-42",
+      "familia": "SC",
+      "titulo": "Sensor Capability and Data",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-43",
+      "familia": "SC",
+      "titulo": "Usage Restrictions",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-44",
+      "familia": "SC",
+      "titulo": "Detonation Chambers",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-45",
+      "familia": "SC",
+      "titulo": "System Time Synchronization",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-46",
+      "familia": "SC",
+      "titulo": "Cross Domain Policy Enforcement",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-47",
+      "familia": "SC",
+      "titulo": "Alternate Communications Paths",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-48",
+      "familia": "SC",
+      "titulo": "Sensor Relocation",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-49",
+      "familia": "SC",
+      "titulo": "Hardware-enforced Separation and Policy Enforcement",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-50",
+      "familia": "SC",
+      "titulo": "Software-enforced Separation and Policy Enforcement",
+      "funcion": "PR"
+    },
+    {
+      "control": "SC-51",
+      "familia": "SC",
+      "titulo": "Hardware-based Protection",
+      "funcion": "PR"
+    },
+    {
+      "control": "SI-1",
+      "familia": "SI",
+      "titulo": "Policy and Procedures",
+      "funcion": "DE"
+    },
+    {
+      "control": "SI-2",
+      "familia": "SI",
+      "titulo": "Flaw Remediation",
+      "funcion": "DE"
+    },
+    {
+      "control": "SI-3",
+      "familia": "SI",
+      "titulo": "Malicious Code Protection",
+      "funcion": "DE"
+    },
+    {
+      "control": "SI-4",
+      "familia": "SI",
+      "titulo": "System Monitoring",
+      "funcion": "DE"
+    },
+    {
+      "control": "SI-5",
+      "familia": "SI",
+      "titulo": "Security Alerts, Advisories, and Directives",
+      "funcion": "DE"
+    },
+    {
+      "control": "SI-6",
+      "familia": "SI",
+      "titulo": "Security and Privacy Function Verification",
+      "funcion": "DE"
+    },
+    {
+      "control": "SI-7",
+      "familia": "SI",
+      "titulo": "Software, Firmware, and Information Integrity",
+      "funcion": "DE"
+    },
+    {
+      "control": "SI-8",
+      "familia": "SI",
+      "titulo": "Spam Protection",
+      "funcion": "DE"
+    },
+    {
+      "control": "SI-10",
+      "familia": "SI",
+      "titulo": "Information Input Validation",
+      "funcion": "DE"
+    },
+    {
+      "control": "SI-11",
+      "familia": "SI",
+      "titulo": "Error Handling",
+      "funcion": "DE"
+    },
+    {
+      "control": "SI-12",
+      "familia": "SI",
+      "titulo": "Information Management and Retention",
+      "funcion": "DE"
+    },
+    {
+      "control": "SI-13",
+      "familia": "SI",
+      "titulo": "Predictable Failure Prevention",
+      "funcion": "DE"
+    },
+    {
+      "control": "SI-14",
+      "familia": "SI",
+      "titulo": "Non-persistence",
+      "funcion": "DE"
+    },
+    {
+      "control": "SI-15",
+      "familia": "SI",
+      "titulo": "Information Output Filtering",
+      "funcion": "DE"
+    },
+    {
+      "control": "SI-16",
+      "familia": "SI",
+      "titulo": "Memory Protection",
+      "funcion": "DE"
+    },
+    {
+      "control": "SI-17",
+      "familia": "SI",
+      "titulo": "Fail-safe Procedures",
+      "funcion": "DE"
+    },
+    {
+      "control": "SI-18",
+      "familia": "SI",
+      "titulo": "Personally Identifiable Information Quality Operations",
+      "funcion": "DE"
+    },
+    {
+      "control": "SI-19",
+      "familia": "SI",
+      "titulo": "De-identification",
+      "funcion": "DE"
+    },
+    {
+      "control": "SI-20",
+      "familia": "SI",
+      "titulo": "Tainting",
+      "funcion": "DE"
+    },
+    {
+      "control": "SI-21",
+      "familia": "SI",
+      "titulo": "Information Refresh",
+      "funcion": "DE"
+    },
+    {
+      "control": "SI-22",
+      "familia": "SI",
+      "titulo": "Information Diversity",
+      "funcion": "DE"
+    },
+    {
+      "control": "SI-23",
+      "familia": "SI",
+      "titulo": "Information Fragmentation",
+      "funcion": "DE"
+    },
+    {
+      "control": "SR-1",
+      "familia": "SR",
+      "titulo": "Policy and Procedures",
+      "funcion": "GV"
+    },
+    {
+      "control": "SR-2",
+      "familia": "SR",
+      "titulo": "Supply Chain Risk Management Plan",
+      "funcion": "GV"
+    },
+    {
+      "control": "SR-3",
+      "familia": "SR",
+      "titulo": "Supply Chain Controls and Processes",
+      "funcion": "GV"
+    },
+    {
+      "control": "SR-4",
+      "familia": "SR",
+      "titulo": "Provenance",
+      "funcion": "GV"
+    },
+    {
+      "control": "SR-5",
+      "familia": "SR",
+      "titulo": "Acquisition Strategies, Tools, and Methods",
+      "funcion": "GV"
+    },
+    {
+      "control": "SR-6",
+      "familia": "SR",
+      "titulo": "Supplier Assessments and Reviews",
+      "funcion": "GV"
+    },
+    {
+      "control": "SR-7",
+      "familia": "SR",
+      "titulo": "Supply Chain Operations Security",
+      "funcion": "GV"
+    },
+    {
+      "control": "SR-8",
+      "familia": "SR",
+      "titulo": "Notification Agreements",
+      "funcion": "GV"
+    },
+    {
+      "control": "SR-9",
+      "familia": "SR",
+      "titulo": "Tamper Resistance and Detection",
+      "funcion": "GV"
+    },
+    {
+      "control": "SR-10",
+      "familia": "SR",
+      "titulo": "Inspection of Systems or Components",
+      "funcion": "GV"
+    },
+    {
+      "control": "SR-11",
+      "familia": "SR",
+      "titulo": "Component Authenticity",
+      "funcion": "GV"
+    },
+    {
+      "control": "SR-12",
+      "familia": "SR",
+      "titulo": "Component Disposal",
+      "funcion": "GV"
+    }
+  ]
+}

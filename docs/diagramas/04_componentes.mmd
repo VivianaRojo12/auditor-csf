@@ -1,0 +1,33 @@
+graph TB
+  subgraph C1["C1 API"]
+    rutas["Endpoints REST"]
+    esquemas["Esquemas Pydantic"]
+  end
+  subgraph C2["C2 Orquestación"]
+    orq["Orquestador de sección"]
+    inf["Ensamblado del informe"]
+  end
+  subgraph C3["C3 Guardrails"]
+    gent["Verificaciones de entrada"]
+    gsal["Verificaciones de salida"]
+  end
+  subgraph C5["C5 Contexto"]
+    lector["Lector/fragmentador de documentos"]
+    rag["Recuperador RAG + armado de prompt"]
+  end
+  subgraph C6["C6 Modelos"]
+    enr["Enrutador por complejidad"]
+    gw["Gateway (tiempo límite, respaldo)"]
+  end
+  subgraph C7["C7 Datos"]
+    aol["Adaptador Ollama"]
+    avec["Adaptador base vectorial"]
+    asql["Adaptadores SQLite"]
+  end
+  rutas --> orq
+  orq --> gent --> gsal
+  orq --> enr --> gw
+  orq --> rag
+  rag --> avec
+  gw --> aol
+  rag --> aol

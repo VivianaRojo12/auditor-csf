@@ -1,0 +1,22 @@
+graph TB
+  subgraph transversales["Capas transversales"]
+    T1["T1 Observabilidad"]
+    T2["T2 Retroalimentación"]
+  end
+  C1["C1 Interfaz del servicio (API)"]
+  C2["C2 Orquestación y ciclo de agente"]
+  C3["C3 Guardrails (entrada/salida)"]
+  C4["C4 Caché (exacta/semántica)"]
+  C5["C5 Construcción de contexto (RAG)"]
+  C6["C6 Enrutador y gateway de modelos"]
+  C7["C7 Acceso a datos y modelos"]
+  C1 --> C2
+  C2 --> C3
+  C2 --> C4
+  C2 --> C5
+  C2 --> C6
+  C5 --> C7
+  C6 --> C7
+  C4 --> C7
+  C2 -.usa.-> T1
+  C2 -.usa.-> T2

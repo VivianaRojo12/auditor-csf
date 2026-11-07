@@ -1,0 +1,14 @@
+graph TB
+  usuario(["Navegador del usuario"])
+  subgraph equipo["Equipo local del estudiante"]
+    web["Aplicación web<br/>(HTML+JS, estática)"]
+    servicio["Servicio / API<br/>(FastAPI)"]
+    ollama["Ollama<br/>(modelos LLM y embeddings)"]
+    chroma[("Base vectorial<br/>ChromaDB")]
+    sqlite[("SQLite<br/>documentos, caché,<br/>trazas, retroalimentación")]
+  end
+  usuario -->|HTTP| web
+  web -->|"HTTP / REST (JSON)"| servicio
+  servicio -->|"HTTP 11434"| ollama
+  servicio -->|"consulta vectorial"| chroma
+  servicio -->|"lectura/escritura"| sqlite

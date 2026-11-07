@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auditor de políticas contra NIST CSF 2.0 — Presentación</title>
+<style>
+  :root{--fondo:#0f1724;--panel:#16202e;--acento:#4a9eff;--texto:#eef3f8;--tenue:#9fb3c6;--ok:#3fb950;--ambar:#f5a623;--rojo:#e5484d}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#000;font-family:system-ui,'Segoe UI',Roboto,sans-serif;color:var(--texto)}
+  .slide{display:none;height:100vh;padding:5vh 7vw;flex-direction:column;justify-content:center;
+    background:radial-gradient(1200px 600px at 20% 0%,#1b2a3f,var(--fondo))}
+  .slide.activa{display:flex}
+  h1{font-size:3rem;line-height:1.1;margin-bottom:1rem}
+  h2{font-size:2rem;color:var(--acento);margin-bottom:1.5rem;border-bottom:2px solid #28384d;padding-bottom:.4rem}
+  h3{font-size:1.2rem;color:var(--tenue);font-weight:500;margin-bottom:2rem}
+  ul{list-style:none;font-size:1.5rem;line-height:1.9}
+  li{padding-left:1.6rem;position:relative;margin-bottom:.3rem}
+  li::before{content:"";position:absolute;left:0;top:.75em;width:.6rem;height:.6rem;background:var(--acento);border-radius:2px}
+  li small{color:var(--tenue);font-size:1rem}
+  .cols{display:flex;gap:4vw;align-items:center}
+  .cols img{max-height:66vh;max-width:52vw;background:#fff;border-radius:8px;padding:10px}
+  .centro{align-items:center;text-align:center}
+  .centro img{max-height:70vh;background:#fff;border-radius:8px;padding:12px;margin-top:1rem}
+  .pie{position:fixed;bottom:16px;right:24px;color:var(--tenue);font-size:.85rem}
+  .num{position:fixed;bottom:16px;left:24px;color:var(--tenue);font-size:.85rem}
+  .tags{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.5rem}
+  .tag{background:var(--panel);border:1px solid #28384d;border-radius:20px;padding:.4rem 1rem;font-size:1rem;color:var(--tenue)}
+  .kpi{display:flex;gap:2rem;margin-top:1rem}
+  .kpi div{background:var(--panel);border:1px solid #28384d;border-radius:10px;padding:1.2rem 1.6rem;text-align:center}
+  .kpi b{font-size:2rem;display:block;color:var(--acento)}
+  em{color:var(--ambar);font-style:normal}
+</style>
+</head>
+<body>
+
+<section class="slide activa centro">
+  <h1>Auditor de políticas de seguridad<br>contra NIST CSF 2.0</h1>
+  <h3>Producto inteligente en capas con modelos de lenguaje, embeddings y RAG · ejecución local</h3>
+  <div class="tags"><span class="tag">FastAPI</span><span class="tag">Ollama</span><span class="tag">ChromaDB</span>
+    <span class="tag">RAG</span><span class="tag">NIST SP 800-53</span></div>
+</section>
+
+<section class="slide">
+  <h2>1. La idea</h2>
+  <ul>
+    <li><b>Usuario:</b> responsable de seguridad de infraestructura crítica</li>
+    <li><b>Problema:</b> comparar políticas contra cientos de controles es lento y omite cosas</li>
+    <li><b>Entrega un informe</b> de brechas por función del CSF 2.0, no una conversación
+      <br><small>estado (cubierto/parcial/ausente), gravedad, evidencia, control citado y redacción corregida</small></li>
+    <li><b>Original:</b> auditor + clasificador + generador; cambia entrada (documento) y salida (informe)</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>2. Arquitectura — contenedores</h2>
+  <div class="cols">
+    <img src="figuras/02_contenedores.png" alt="Contenedores">
+    <ul>
+      <li>Web (presentación) y Servicio (lógica)</li>
+      <li>La web consume <em>solo la API</em> por HTTP</li>
+      <li>Ollama, ChromaDB y SQLite, todo local</li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>2. Arquitectura — capas del servicio</h2>
+  <div class="cols">
+    <img src="figuras/03_capas.png" alt="Capas">
+    <ul>
+      <li>C1 API · C2 Orquestación · C3 Guardrails</li>
+      <li>C4 Caché · C5 Contexto/RAG · C6 Enrutador/Gateway</li>
+      <li>C7 Datos · T1 Observabilidad · T2 Retroalimentación</li>
+      <li><small>dependencias solo hacia abajo; adaptadores intercambiables</small></li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide">
+  <h2>2. Flujo de una consulta</h2>
+  <div class="centro"><img src="figuras/07_secuencia_consulta.png" alt="Secuencia de consulta"></div>
+</section>
+
+<section class="slide">
+  <h2>3. Selección de modelos y RAG</h2>
+  <ul>
+    <li>Comparados <em>2 embeddings</em> y <em>3 modelos</em> con evidencia (acierto@k, fidelidad, latencia)</li>
+    <li>Enrutador: ruta simple (modelo rápido) vs. compleja (modelo capaz)</li>
+    <li>RAG: fragmentación con solapamiento, k y umbral calibrados</li>
+    <li>Recuperación <em>translingüe</em>: corpus en inglés, documentos en español (bge-m3)</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>4. Demostración en vivo</h2>
+  <ul>
+    <li>Cargar una política y ver el informe con fuentes</li>
+    <li>La misma consulta servida desde la <em>caché semántica</em></li>
+    <li>Una entrada bloqueada por los <em>guardrails</em> (inyección)</li>
+    <li>Una sección vaga que activa el <em>ciclo de agente</em></li>
+    <li>Retroalimentación, panel de métricas y OpenAPI</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <h2>5. Resultados y limitaciones</h2>
+  <div class="kpi">
+    <div><b>acierto@3</b>recuperación</div>
+    <div><b>RAG&gt;sin RAG</b>fidelidad</div>
+    <div><b>guardrails</b>bloqueos / falsos+</div>
+    <div><b>caché</b>reducción de latencia</div>
+  </div>
+  <ul style="margin-top:2rem;font-size:1.2rem">
+    <li>Limitaciones: corpus en inglés; correspondencia CSF–800-53 de trabajo</li>
+    <li>"Cubierto" = alineación con el control, no cumplimiento integral; verificar las respuestas del modelo</li>
+  </ul>
+  <p style="margin-top:1.5rem;color:var(--tenue)">Los valores exactos están en el informe técnico (sección 10).</p>
+</section>
+
+<section class="slide centro">
+  <h1>Gracias</h1>
+  <h3>El código muestra que funciona; el informe muestra que está bien pensado.</h3>
+</section>
+
+<div class="num" id="num"></div>
+<div class="pie">← / → para navegar</div>
+<script>
+  const slides=[...document.querySelectorAll('.slide')];let i=0;
+  const num=document.getElementById('num');
+  function mostrar(n){slides[i].classList.remove('activa');i=Math.max(0,Math.min(slides.length-1,n));
+    slides[i].classList.add('activa');num.textContent=(i+1)+' / '+slides.length;}
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown')mostrar(i+1);
+    if(e.key==='ArrowLeft'||e.key==='PageUp')mostrar(i-1);
+    if(e.key==='Home')mostrar(0);if(e.key==='End')mostrar(slides.length-1);});
+  document.addEventListener('click',()=>mostrar(i+1));
+  mostrar(0);
+</script>
+</body>
+</html>

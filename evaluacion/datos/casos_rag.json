@@ -1,0 +1,27 @@
+{
+  "descripcion": "Casos de prueba de recuperación y auditoría. Cada caso es un enunciado de política con los controles SP 800-53 que debería recuperar. 'familia' permite medir acierto@k a nivel familia.",
+  "casos": [
+    {"id": "rag-01", "texto": "El acceso a los sistemas se otorga mediante usuario y contraseña; no hay autenticación de múltiples factores para el acceso remoto.", "controles_esperados": ["IA-2", "AC-17"], "familia": ["IA", "AC"]},
+    {"id": "rag-02", "texto": "Las cuentas de los empleados que dejan la organización se deshabilitan cuando el área de sistemas recibe el aviso.", "controles_esperados": ["AC-2", "PS-4"], "familia": ["AC", "PS"]},
+    {"id": "rag-03", "texto": "Se realizan respaldos de las bases de datos una vez por semana en un disco externo guardado en la misma sala de servidores.", "controles_esperados": ["CP-9"], "familia": ["CP"]},
+    {"id": "rag-04", "texto": "No existe un procedimiento documentado de restauración ni pruebas de recuperación de los respaldos.", "controles_esperados": ["CP-10", "CP-4"], "familia": ["CP"]},
+    {"id": "rag-05", "texto": "Los servidores generan bitácoras locales; no hay recolección central ni revisión periódica de los registros de eventos.", "controles_esperados": ["AU-6", "AU-3"], "familia": ["AU"]},
+    {"id": "rag-06", "texto": "No se definen tiempos de retención de las bitácoras de auditoría.", "controles_esperados": ["AU-11"], "familia": ["AU"]},
+    {"id": "rag-07", "texto": "Cuando ocurre un incidente, el técnico de turno lo resuelve según su criterio; no existe un plan formal de respuesta a incidentes.", "controles_esperados": ["IR-8", "IR-4"], "familia": ["IR"]},
+    {"id": "rag-08", "texto": "No se realiza una clasificación de severidad de los incidentes ni se notifican a una autoridad.", "controles_esperados": ["IR-6", "IR-4"], "familia": ["IR"]},
+    {"id": "rag-09", "texto": "El personal de nuevo ingreso recibe una plática de inducción; no se imparte capacitación periódica en seguridad.", "controles_esperados": ["AT-2"], "familia": ["AT"]},
+    {"id": "rag-10", "texto": "No se realiza capacitación basada en roles para el personal con responsabilidades de seguridad.", "controles_esperados": ["AT-3"], "familia": ["AT"]},
+    {"id": "rag-11", "texto": "Las contraseñas deben tener al menos ocho caracteres pero no se exige complejidad ni rotación.", "controles_esperados": ["IA-5"], "familia": ["IA"]},
+    {"id": "rag-12", "texto": "No existe un inventario actualizado de los activos de información ni de los sistemas de control industrial.", "controles_esperados": ["CM-8"], "familia": ["CM"]},
+    {"id": "rag-13", "texto": "La organización no realiza evaluaciones de riesgo periódicas sobre sus sistemas críticos.", "controles_esperados": ["RA-3"], "familia": ["RA"]},
+    {"id": "rag-14", "texto": "No se ejecutan análisis de vulnerabilidades sobre los servidores expuestos.", "controles_esperados": ["RA-5"], "familia": ["RA"]},
+    {"id": "rag-15", "texto": "El tráfico entre las plantas y el centro de control no se cifra en tránsito.", "controles_esperados": ["SC-8"], "familia": ["SC"]},
+    {"id": "rag-16", "texto": "No se segmenta la red de los sistemas de control industrial respecto de la red administrativa.", "controles_esperados": ["SC-7"], "familia": ["SC"]},
+    {"id": "rag-17", "texto": "Las actualizaciones de seguridad de los sistemas operativos se aplican sin un procedimiento definido.", "controles_esperados": ["SI-2"], "familia": ["SI"]},
+    {"id": "rag-18", "texto": "No se cuenta con protección contra código malicioso en los equipos de la red administrativa.", "controles_esperados": ["SI-3"], "familia": ["SI"]},
+    {"id": "rag-19", "texto": "El acceso físico a la sala de servidores no se controla ni se registra.", "controles_esperados": ["PE-3"], "familia": ["PE"]},
+    {"id": "rag-20", "texto": "No existe una política de seguridad de la información aprobada por la dirección ni roles definidos de gobierno.", "controles_esperados": ["PM-1", "PL-1"], "familia": ["PM", "PL"]},
+    {"id": "rag-21", "texto": "No se evalúa la seguridad de los proveedores externos que dan mantenimiento a los sistemas.", "controles_esperados": ["SR-6", "SA-9"], "familia": ["SR", "SA"]},
+    {"id": "rag-22", "texto": "No se restringen los privilegios de administrador; varios usuarios comparten la cuenta root.", "controles_esperados": ["AC-6"], "familia": ["AC"]}
+  ]
+}

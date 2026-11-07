@@ -1,0 +1,84 @@
+:root {
+  --fondo: #0f1419; --panel: #171e27; --panel2: #1e2832; --borde: #2a3744;
+  --texto: #e6edf3; --tenue: #9fb0c0; --acento: #4a9eff; --acento2: #2d7dd2;
+  --alta: #e5484d; --media: #f5a623; --baja: #5b9bd5; --ok: #3fb950;
+  --radio: 10px; --sombra: 0 2px 12px rgba(0,0,0,.3);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: var(--fondo);
+  color: var(--texto); line-height: 1.5; }
+header { display: flex; justify-content: space-between; align-items: center; padding: 18px 28px;
+  border-bottom: 1px solid var(--borde); background: var(--panel); flex-wrap: wrap; gap: 12px; }
+.marca { display: flex; align-items: center; gap: 14px; }
+.logo { background: var(--acento2); color: #fff; font-weight: 700; padding: 8px 12px; border-radius: 8px;
+  letter-spacing: .5px; }
+h1 { font-size: 1.25rem; } .sub { color: var(--tenue); font-size: .85rem; }
+.estado { font-size: .8rem; padding: 6px 12px; border-radius: 20px; background: var(--panel2);
+  border: 1px solid var(--borde); }
+.estado.ok { color: var(--ok); } .estado.mal { color: var(--alta); }
+.pestanas { display: flex; gap: 4px; padding: 0 28px; background: var(--panel); border-bottom: 1px solid var(--borde); }
+.pestana { background: none; border: none; color: var(--tenue); padding: 12px 18px; cursor: pointer;
+  font-size: .9rem; border-bottom: 2px solid transparent; }
+.pestana.activa { color: var(--texto); border-bottom-color: var(--acento); }
+main { max-width: 980px; margin: 0 auto; padding: 28px; }
+.vista { display: none; } .vista.activa { display: block; }
+.cargador { background: var(--panel); border: 1px dashed var(--borde); border-radius: var(--radio);
+  padding: 32px; text-align: center; }
+.cargador p { color: var(--tenue); margin-bottom: 16px; }
+input[type=file] { margin-bottom: 16px; color: var(--tenue); }
+input[type=text] { flex: 1; background: var(--panel2); border: 1px solid var(--borde); color: var(--texto);
+  padding: 11px 14px; border-radius: 8px; font-size: .95rem; }
+button { font-size: .9rem; border-radius: 8px; cursor: pointer; }
+.primario { background: var(--acento2); color: #fff; border: none; padding: 11px 22px; font-weight: 600; }
+.primario:disabled { opacity: .5; cursor: not-allowed; }
+.secundario { background: var(--panel2); color: var(--texto); border: 1px solid var(--borde); padding: 9px 16px; }
+.enlace { background: none; border: none; color: var(--acento); text-decoration: underline; }
+.ejemplos { margin-top: 14px; font-size: .85rem; color: var(--tenue); }
+.fila { display: flex; gap: 10px; margin-bottom: 18px; } .fila-entre { display: flex; justify-content: space-between;
+  align-items: center; margin-bottom: 16px; }
+.ayuda { color: var(--tenue); font-size: .88rem; margin-bottom: 16px; }
+.oculto { display: none; }
+.barra-indef { height: 4px; background: var(--panel2); border-radius: 2px; overflow: hidden; position: relative; }
+.barra-indef::after { content: ""; position: absolute; inset: 0; width: 40%; background: var(--acento);
+  animation: desliza 1.1s infinite ease-in-out; }
+@keyframes desliza { 0%{left:-40%} 100%{left:100%} }
+#progreso { margin-top: 18px; } #progreso span { font-size: .85rem; color: var(--tenue); }
+
+.resumen-cajas { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap: 12px;
+  margin: 18px 0; }
+.caja { background: var(--panel); border: 1px solid var(--borde); border-radius: var(--radio); padding: 16px; }
+.caja .num { font-size: 1.8rem; font-weight: 700; } .caja .et { color: var(--tenue); font-size: .8rem; }
+.caja.alerta .num { color: var(--alta); }
+
+.funciones { display: grid; gap: 10px; margin: 18px 0; }
+.func { background: var(--panel); border: 1px solid var(--borde); border-radius: var(--radio); padding: 14px; }
+.func-cab { display: flex; justify-content: space-between; font-size: .9rem; margin-bottom: 8px; }
+.medidor { height: 8px; background: var(--panel2); border-radius: 4px; overflow: hidden; }
+.medidor > div { height: 100%; background: var(--ok); }
+.func small { color: var(--tenue); }
+
+.hallazgo { background: var(--panel); border: 1px solid var(--borde); border-left-width: 4px; border-radius: 8px;
+  padding: 14px 16px; margin-bottom: 10px; }
+.hallazgo.alta { border-left-color: var(--alta); } .hallazgo.media { border-left-color: var(--media); }
+.hallazgo.baja { border-left-color: var(--baja); }
+.hallazgo .cab { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 6px; }
+.etiqueta { font-size: .72rem; padding: 2px 8px; border-radius: 12px; background: var(--panel2);
+  border: 1px solid var(--borde); color: var(--tenue); }
+.etiqueta.estado-ausente { color: var(--alta); } .etiqueta.estado-parcial { color: var(--media); }
+.etiqueta.estado-cubierto { color: var(--ok); }
+.hallazgo h4 { font-size: .95rem; } .hallazgo p { font-size: .88rem; margin: 4px 0; }
+.hallazgo .evi { color: var(--tenue); font-style: italic; border-left: 2px solid var(--borde); padding-left: 10px; }
+.hallazgo .fuente { font-size: .78rem; color: var(--acento); }
+.seccion-bloque { margin: 24px 0 10px; font-size: 1.05rem; border-bottom: 1px solid var(--borde); padding-bottom: 6px; }
+.bloqueada { color: var(--media); background: var(--panel); border: 1px solid var(--media); border-radius: 8px;
+  padding: 12px 14px; font-size: .88rem; }
+.retro { margin-top: 20px; display: flex; gap: 10px; align-items: center; font-size: .85rem; color: var(--tenue); }
+.retro button { background: var(--panel2); border: 1px solid var(--borde); color: var(--texto); padding: 7px 14px; }
+.tabla { width: 100%; border-collapse: collapse; font-size: .85rem; }
+.tabla th, .tabla td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--borde); }
+.tabla th { color: var(--tenue); font-weight: 600; }
+.meta-linea { font-size: .78rem; color: var(--tenue); margin-top: 4px; }
+pre.cita { white-space: pre-wrap; background: var(--panel2); padding: 10px; border-radius: 6px; font-size: .8rem; }
+footer { max-width: 980px; margin: 0 auto; padding: 20px 28px 40px; color: var(--tenue); font-size: .78rem;
+  border-top: 1px solid var(--borde); }
+a { color: var(--acento); }

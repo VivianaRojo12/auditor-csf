@@ -1,0 +1,17 @@
+sequenceDiagram
+  actor Op as Operador
+  participant SC as scripts/ingestar_corpus
+  participant C5 as C5 Contexto
+  participant C7a as C7 Adaptador Ollama
+  participant C7v as C7 Base vectorial
+  Op->>SC: ejecutar ingesta
+  SC->>C5: ingestar_corpus(corpus/controles)
+  loop por cada control (.md)
+    C5->>C5: fragmentar (tamaño/solapamiento)
+  end
+  C5->>C7a: embeber(fragmentos)
+  C7a-->>C5: vectores
+  C5->>C7v: agregar(fragmentos, vectores)
+  C7v-->>C5: ok
+  C5-->>SC: {documentos, fragmentos}
+  SC->>SC: registrar versión de corpus

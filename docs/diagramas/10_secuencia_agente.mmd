@@ -1,0 +1,16 @@
+sequenceDiagram
+  participant C2 as C2 Orquestación (agente)
+  participant C5 as C5 Contexto (RAG)
+  participant C6 as C6 Gateway
+  participant C7 as C7 Ollama
+  C2->>C5: recuperar(consulta original)
+  C5-->>C2: mejor_puntaje < umbral (recuperación pobre)
+  loop hasta max_iteraciones
+    C2->>C6: reformular consulta
+    C6->>C7: generar nueva consulta
+    C7-->>C6: consulta reformulada
+    C6-->>C2: consulta reformulada
+    C2->>C5: recuperar(consulta reformulada)
+    C5-->>C2: fragmentos (mejor puntaje)
+  end
+  C2->>C6: generar análisis con el mejor contexto

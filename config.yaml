@@ -1,0 +1,63 @@
+# Configuración activa de Sentinela.
+# Los valores marcados como "calibrado" los ajusta evaluacion/ejecutar_todo.py a partir de los experimentos.
+
+servicio:
+  host: 127.0.0.1
+  puerto: 8000
+  directorio_datos: datos_runtime
+  origenes_web: ["http://127.0.0.1:8080", "http://localhost:8080"]
+
+proveedor_modelos: ollama          # ollama | simulado (solo pruebas automáticas)
+url_ollama: http://127.0.0.1:11434
+
+modelos:
+  rutas:
+    simple:
+      modelo: qwen2.5:3b           # calibrado
+      tiempo_limite_s: 240
+    compleja:
+      modelo: qwen2.5:7b           # calibrado
+      tiempo_limite_s: 420
+  respaldo: llama3.2:3b            # calibrado
+  modelo_reformulacion: qwen2.5:3b
+  reintentos: 1
+  num_ctx: 8192
+  temperatura: 0.1
+  max_tokens_salida: 900
+
+embeddings:
+  modelo: bge-m3                   # calibrado
+  prefijos:
+    nomic-embed-text: {consulta: "search_query: ", documento: "search_document: "}
+    mxbai-embed-large: {consulta: "Represent this sentence for searching relevant passages: ", documento: ""}
+    bge-m3: {consulta: "", documento: ""}
+  lote: 32
+
+base_vectorial:
+  tipo: chroma                     # chroma | memoria
+  coleccion: sentinela
+
+fragmentacion:
+  tamano: 800                      # calibrado
+  solapamiento: 120                # calibrado
+
+recuperacion:
+  k: 4                             # calibrado
+  umbral: 0.35                     # calibrado: debajo de este puntaje el fragmento se descarta
+  max_fragmentos_prompt: 12
+
+agente:
+  umbral_recuperacion_pobre: 0.50  # calibrado
+  max_iteraciones: 3
+
+cache:
+  ttl_horas: 24
+  umbral_semantico: 0.95           # calibrado
+
+enrutador:
+  umbral_complejidad: 4
+
+guardrails:
+  max_comandos: 300
+  max_bytes: 400000
+  min_proporcion_shell: 0.5

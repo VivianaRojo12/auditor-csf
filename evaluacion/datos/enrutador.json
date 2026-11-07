@@ -1,0 +1,15 @@
+{
+  "descripcion": "Secciones etiquetadas por la ruta esperada del enrutador (simple = acotada; compleja = varios temas o extensa).",
+  "casos": [
+    {"id": "r-01", "titulo": "Objeto y alcance", "texto": "Esta política define el alcance general de la seguridad de la información en la organización.", "ruta_esperada": "simple"},
+    {"id": "r-02", "titulo": "Capacitación", "texto": "El personal de nuevo ingreso recibe una plática de inducción.", "ruta_esperada": "simple"},
+    {"id": "r-03", "titulo": "Respaldo", "texto": "Se realizan respaldos semanales en un disco externo.", "ruta_esperada": "simple"},
+    {"id": "r-04", "titulo": "Definiciones", "texto": "Para efectos de esta política se entiende por activo cualquier recurso de información.", "ruta_esperada": "simple"},
+    {"id": "r-05", "titulo": "Seguridad integral de operaciones", "texto": "Esta sección cubre el control de acceso con contraseñas y autenticación, el cifrado de las comunicaciones, el respaldo y la recuperación ante desastres, el monitoreo y registro de eventos, la evaluación de riesgos y la gestión de proveedores externos que acceden a los sistemas de control industrial.", "ruta_esperada": "compleja"},
+    {"id": "r-06", "titulo": "Gestión de identidades y accesos", "texto": "La organización administra las cuentas y los privilegios de los usuarios, define el uso de autenticación de múltiples factores, controla las credenciales y las llaves de cifrado, y monitorea el uso de las cuentas con registro de eventos y detección de anomalías en los accesos remotos de los proveedores.", "ruta_esperada": "compleja"},
+    {"id": "r-07", "titulo": "Continuidad y respuesta", "texto": "El plan abarca el respaldo, la recuperación y la continuidad ante desastres, la respuesta a incidentes con notificación y contención, el monitoreo de eventos, la evaluación de riesgos asociados y la coordinación con proveedores y terceros durante la contingencia en las instalaciones físicas.", "ruta_esperada": "compleja"},
+    {"id": "r-08", "titulo": "Firma", "texto": "Aprobado por la dirección general.", "ruta_esperada": "simple"},
+    {"id": "r-09", "titulo": "Control de acceso físico", "texto": "El acceso a la sala de servidores se controla con una cerradura.", "ruta_esperada": "simple"},
+    {"id": "r-10", "titulo": "Marco de seguridad y cumplimiento", "texto": "La organización establece controles de acceso y autenticación, cifrado de datos en tránsito y reposo, procedimientos de respaldo y recuperación, respuesta y notificación de incidentes, monitoreo continuo con bitácoras centralizadas, evaluación periódica de riesgos y vulnerabilidades, y requisitos de seguridad para la cadena de suministro y los contratistas que operan en las instalaciones físicas críticas de la organización.", "ruta_esperada": "compleja"}
+  ]
+}

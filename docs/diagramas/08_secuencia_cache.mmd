@@ -1,0 +1,20 @@
+sequenceDiagram
+  participant Web
+  participant C1 as C1 API
+  participant C2 as C2 Orquestación
+  participant C3 as C3 Guardrails
+  participant C5 as C5 Contexto
+  participant C4 as C4 Caché
+  participant T1 as T1 Observabilidad
+  Web->>C1: POST /auditorias (sección parecida a una previa)
+  C1->>C2: analizar_seccion(s)
+  C2->>C3: verificar_entrada
+  C3-->>C2: aprobada
+  C2->>C5: embeber consulta
+  C5-->>C2: vector
+  C2->>C4: buscar(vector)
+  C4->>C4: similitud >= umbral semántico
+  C4-->>C2: acierto semántico (resultado guardado)
+  C2->>T1: registrar (cache=semantica)
+  C2-->>C1: hallazgos (sin llamar al modelo)
+  C1-->>Web: informe
