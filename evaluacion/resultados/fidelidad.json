@@ -1,0 +1,215 @@
+{
+  "resumen": {
+    "n_casos": 22,
+    "juez": "qwen2.5:7b",
+    "fidelidad_con_rag": 1.33,
+    "fidelidad_sin_rag": 0.86,
+    "calificaciones_validas_con": 21,
+    "calificaciones_validas_sin": 22,
+    "citas_validas_con_rag": 0.324,
+    "citas_validas_sin_rag": 0.0,
+    "hallazgos_promedio_con": 1.55,
+    "hallazgos_promedio_sin": 0.82,
+    "metodo": "ambas respuestas calificadas contra los mismos controles recuperados; contexto completo"
+  },
+  "detalle": [
+    {
+      "id": "rag-01",
+      "fid_con": 2,
+      "fid_sin": 1,
+      "hallazgos_con": 3,
+      "citas_ok_con": 0,
+      "hallazgos_sin": 1,
+      "citas_ok_sin": 0
+    },
+    {
+      "id": "rag-02",
+      "fid_con": 2,
+      "fid_sin": 0,
+      "hallazgos_con": 4,
+      "citas_ok_con": 0,
+      "hallazgos_sin": 0,
+      "citas_ok_sin": 0
+    },
+    {
+      "id": "rag-03",
+      "fid_con": 1,
+      "fid_sin": 2,
+      "hallazgos_con": 1,
+      "citas_ok_con": 1,
+      "hallazgos_sin": 0,
+      "citas_ok_sin": 0
+    },
+    {
+      "id": "rag-04",
+      "fid_con": 0,
+      "fid_sin": 0,
+      "hallazgos_con": 0,
+      "citas_ok_con": 0,
+      "hallazgos_sin": 0,
+      "citas_ok_sin": 0
+    },
+    {
+      "id": "rag-05",
+      "fid_con": 2,
+      "fid_sin": 0,
+      "hallazgos_con": 2,
+      "citas_ok_con": 0,
+      "hallazgos_sin": 1,
+      "citas_ok_sin": 0
+    },
+    {
+      "id": "rag-06",
+      "fid_con": 0,
+      "fid_sin": 1,
+      "hallazgos_con": 3,
+      "citas_ok_con": 3,
+      "hallazgos_sin": 1,
+      "citas_ok_sin": 0
+    },
+    {
+      "id": "rag-07",
+      "fid_con": 1,
+      "fid_sin": 1,
+      "hallazgos_con": 1,
+      "citas_ok_con": 0,
+      "hallazgos_sin": 1,
+      "citas_ok_sin": 0
+    },
+    {
+      "id": "rag-08",
+      "fid_con": 3,
+      "fid_sin": 1,
+      "hallazgos_con": 2,
+      "citas_ok_con": 2,
+      "hallazgos_sin": 1,
+      "citas_ok_sin": 0
+    },
+    {
+      "id": "rag-09",
+      "fid_con": 3,
+      "fid_sin": 1,
+      "hallazgos_con": 1,
+      "citas_ok_con": 0,
+      "hallazgos_sin": 1,
+      "citas_ok_sin": 0
+    },
+    {
+      "id": "rag-10",
+      "fid_con": 1,
+      "fid_sin": 1,
+      "hallazgos_con": 1,
+      "citas_ok_con": 1,
+      "hallazgos_sin": 1,
+      "citas_ok_sin": 0
+    },
+    {
+      "id": "rag-11",
+      "fid_con": 2,
+      "fid_sin": 1,
+      "hallazgos_con": 0,
+      "citas_ok_con": 0,
+      "hallazgos_sin": 1,
+      "citas_ok_sin": 0
+    },
+    {
+      "id": "rag-12",
+      "fid_con": 1,
+      "fid_sin": 1,
+      "hallazgos_con": 1,
+      "citas_ok_con": 0,
+      "hallazgos_sin": 1,
+      "citas_ok_sin": 0
+    },
+    {
+      "id": "rag-13",
+      "fid_con": 1,
+      "fid_sin": 1,
+      "hallazgos_con": 3,
+      "citas_ok_con": 0,
+      "hallazgos_sin": 1,
+      "citas_ok_sin": 0
+    },
+    {
+      "id": "rag-14",
+      "fid_con": 1,
+      "fid_sin": 1,
+      "hallazgos_con": 1,
+      "citas_ok_con": 1,
+      "hallazgos_sin": 1,
+      "citas_ok_sin": 0
+    },
+    {
+      "id": "rag-15",
+      "fid_con": 1,
+      "fid_sin": 1,
+      "hallazgos_con": 1,
+      "citas_ok_con": 0,
+      "hallazgos_sin": 1,
+      "citas_ok_sin": 0
+    },
+    {
+      "id": "rag-16",
+      "fid_con": 0,
+      "fid_sin": 0,
+      "hallazgos_con": 0,
+      "citas_ok_con": 0,
+      "hallazgos_sin": 0,
+      "citas_ok_sin": 0
+    },
+    {
+      "id": "rag-17",
+      "fid_con": 1,
+      "fid_sin": 1,
+      "hallazgos_con": 1,
+      "citas_ok_con": 0,
+      "hallazgos_sin": 1,
+      "citas_ok_sin": 0
+    },
+    {
+      "id": "rag-18",
+      "fid_con": 2,
+      "fid_sin": 1,
+      "hallazgos_con": 2,
+      "citas_ok_con": 0,
+      "hallazgos_sin": 1,
+      "citas_ok_sin": 0
+    },
+    {
+      "id": "rag-19",
+      "fid_con": 1,
+      "fid_sin": 1,
+      "hallazgos_con": 1,
+      "citas_ok_con": 1,
+      "hallazgos_sin": 1,
+      "citas_ok_sin": 0
+    },
+    {
+      "id": "rag-20",
+      "fid_con": -1,
+      "fid_sin": 1,
+      "hallazgos_con": 3,
+      "citas_ok_con": 0,
+      "hallazgos_sin": 1,
+      "citas_ok_sin": 0
+    },
+    {
+      "id": "rag-21",
+      "fid_con": 1,
+      "fid_sin": 1,
+      "hallazgos_con": 1,
+      "citas_ok_con": 0,
+      "hallazgos_sin": 1,
+      "citas_ok_sin": 0
+    },
+    {
+      "id": "rag-22",
+      "fid_con": 2,
+      "fid_sin": 1,
+      "hallazgos_con": 2,
+      "citas_ok_con": 2,
+      "hallazgos_sin": 1,
+      "citas_ok_sin": 0
+    }
+  ]
+}

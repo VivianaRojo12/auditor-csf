@@ -1,0 +1,235 @@
+{
+  "candidatos": [
+    "qwen2.5:3b",
+    "llama3.2:3b",
+    "qwen2.5:7b"
+  ],
+  "modelo_juez": "qwen2.5:7b",
+  "n_secciones": 8,
+  "resultados": [
+    {
+      "modelo": "qwen2.5:3b",
+      "latencia_media_ms": 39680.1,
+      "latencia_max_ms": 67227.8,
+      "tokens_salida_media": 300.2,
+      "esquema_valido_pct": 1.0,
+      "fidelidad_media": 0.75,
+      "recursos": {
+        "parametros": "3.1B",
+        "cuantizacion": "Q4_K_M",
+        "memoria_gb": null,
+        "tamano_disco_gb": 1.93,
+        "ventana_contexto": 32768,
+        "licencia": "Qwen RESEARCH LICENSE AGREEMENT"
+      },
+      "detalle": [
+        {
+          "id": "rag-01",
+          "latencia_ms": 43239.0,
+          "tokens": 348,
+          "esquema_valido": true,
+          "fidelidad": 2
+        },
+        {
+          "id": "rag-02",
+          "latencia_ms": 54023.6,
+          "tokens": 500,
+          "esquema_valido": true,
+          "fidelidad": 2
+        },
+        {
+          "id": "rag-03",
+          "latencia_ms": 17299.3,
+          "tokens": 44,
+          "esquema_valido": true,
+          "fidelidad": 2
+        },
+        {
+          "id": "rag-04",
+          "latencia_ms": 23206.4,
+          "tokens": 131,
+          "esquema_valido": true,
+          "fidelidad": 0
+        },
+        {
+          "id": "rag-05",
+          "latencia_ms": 51534.3,
+          "tokens": 507,
+          "esquema_valido": true,
+          "fidelidad": 0
+        },
+        {
+          "id": "rag-06",
+          "latencia_ms": 67227.8,
+          "tokens": 528,
+          "esquema_valido": true,
+          "fidelidad": 0
+        },
+        {
+          "id": "rag-07",
+          "latencia_ms": 19267.2,
+          "tokens": 33,
+          "esquema_valido": true,
+          "fidelidad": 0
+        },
+        {
+          "id": "rag-08",
+          "latencia_ms": 41643.2,
+          "tokens": 311,
+          "esquema_valido": true,
+          "fidelidad": 0
+        }
+      ]
+    },
+    {
+      "modelo": "llama3.2:3b",
+      "latencia_media_ms": 45350.1,
+      "latencia_max_ms": 51717.8,
+      "tokens_salida_media": 447.2,
+      "esquema_valido_pct": 1.0,
+      "fidelidad_media": 1.5,
+      "recursos": {
+        "parametros": "3.2B",
+        "cuantizacion": "Q4_K_M",
+        "memoria_gb": 3.13,
+        "tamano_disco_gb": 2.02,
+        "ventana_contexto": 131072,
+        "licencia": "LLAMA 3.2 COMMUNITY LICENSE AGREEMENT"
+      },
+      "detalle": [
+        {
+          "id": "rag-01",
+          "latencia_ms": 51717.8,
+          "tokens": 451,
+          "esquema_valido": true,
+          "fidelidad": 2
+        },
+        {
+          "id": "rag-02",
+          "latencia_ms": 44026.3,
+          "tokens": 436,
+          "esquema_valido": true,
+          "fidelidad": 3
+        },
+        {
+          "id": "rag-03",
+          "latencia_ms": 47716.9,
+          "tokens": 458,
+          "esquema_valido": true,
+          "fidelidad": 3
+        },
+        {
+          "id": "rag-04",
+          "latencia_ms": 44707.0,
+          "tokens": 441,
+          "esquema_valido": true,
+          "fidelidad": 0
+        },
+        {
+          "id": "rag-05",
+          "latencia_ms": 42727.9,
+          "tokens": 465,
+          "esquema_valido": true,
+          "fidelidad": 0
+        },
+        {
+          "id": "rag-06",
+          "latencia_ms": 46843.5,
+          "tokens": 480,
+          "esquema_valido": true,
+          "fidelidad": 2
+        },
+        {
+          "id": "rag-07",
+          "latencia_ms": 38108.7,
+          "tokens": 375,
+          "esquema_valido": true,
+          "fidelidad": 1
+        },
+        {
+          "id": "rag-08",
+          "latencia_ms": 46952.6,
+          "tokens": 472,
+          "esquema_valido": true,
+          "fidelidad": 1
+        }
+      ]
+    },
+    {
+      "modelo": "qwen2.5:7b",
+      "latencia_media_ms": 80343.4,
+      "latencia_max_ms": 105123.9,
+      "tokens_salida_media": 390.6,
+      "esquema_valido_pct": 1.0,
+      "fidelidad_media": 1.38,
+      "recursos": {
+        "parametros": "7.6B",
+        "cuantizacion": "Q4_K_M",
+        "memoria_gb": 5.47,
+        "tamano_disco_gb": 4.68,
+        "ventana_contexto": 32768,
+        "licencia": "Apache License"
+      },
+      "detalle": [
+        {
+          "id": "rag-01",
+          "latencia_ms": 105123.9,
+          "tokens": 515,
+          "esquema_valido": true,
+          "fidelidad": 2
+        },
+        {
+          "id": "rag-02",
+          "latencia_ms": 101982.0,
+          "tokens": 553,
+          "esquema_valido": true,
+          "fidelidad": 3
+        },
+        {
+          "id": "rag-03",
+          "latencia_ms": 76275.1,
+          "tokens": 365,
+          "esquema_valido": true,
+          "fidelidad": 3
+        },
+        {
+          "id": "rag-04",
+          "latencia_ms": 41878.9,
+          "tokens": 151,
+          "esquema_valido": true,
+          "fidelidad": 0
+        },
+        {
+          "id": "rag-05",
+          "latencia_ms": 96954.9,
+          "tokens": 543,
+          "esquema_valido": true,
+          "fidelidad": 0
+        },
+        {
+          "id": "rag-06",
+          "latencia_ms": 100367.7,
+          "tokens": 500,
+          "esquema_valido": true,
+          "fidelidad": 3
+        },
+        {
+          "id": "rag-07",
+          "latencia_ms": 57074.9,
+          "tokens": 241,
+          "esquema_valido": true,
+          "fidelidad": 0
+        },
+        {
+          "id": "rag-08",
+          "latencia_ms": 63090.1,
+          "tokens": 257,
+          "esquema_valido": true,
+          "fidelidad": 0
+        }
+      ]
+    }
+  ],
+  "ruta_simple": "qwen2.5:3b",
+  "ruta_compleja": "llama3.2:3b"
+}

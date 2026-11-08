@@ -1,0 +1,509 @@
+{
+  "candidatos": [
+    "nomic-embed-text",
+    "bge-m3",
+    "mxbai-embed-large"
+  ],
+  "n_casos": 22,
+  "resultados": [
+    {
+      "modelo": "bge-m3",
+      "acierto@1": 0.591,
+      "acierto@3": 0.727,
+      "acierto@5": 0.864,
+      "acierto_exacto@5": 0.727,
+      "latencia_consulta_ms": 382.2,
+      "tiempo_ingesta_s": 413.2,
+      "fragmentos": 918,
+      "recursos": {
+        "memoria_gb": null,
+        "tamano_disco_gb": null
+      },
+      "detalle": [
+        {
+          "id": "rag-01",
+          "recuperados": [
+            "IA-2",
+            "IA-2",
+            "SC-2",
+            "AC-17"
+          ],
+          "acierto@1": true,
+          "acierto@3": true,
+          "acierto@5": true
+        },
+        {
+          "id": "rag-02",
+          "recuperados": [
+            "PS-4",
+            "AC-2",
+            "AC-2",
+            "SI-17"
+          ],
+          "acierto@1": true,
+          "acierto@3": true,
+          "acierto@5": true
+        },
+        {
+          "id": "rag-03",
+          "recuperados": [
+            "CP-9",
+            "CP-6",
+            "CP-6",
+            "CP-9"
+          ],
+          "acierto@1": true,
+          "acierto@3": true,
+          "acierto@5": true
+        },
+        {
+          "id": "rag-04",
+          "recuperados": [
+            "SA-5",
+            "MA-3",
+            "PL-1",
+            "AU-5"
+          ]
+        },
+        {
+          "id": "rag-05",
+          "recuperados": [
+            "SC-36",
+            "MA-3",
+            "MA-4",
+            "AC-10"
+          ]
+        },
+        {
+          "id": "rag-06",
+          "recuperados": [
+            "AU-11",
+            "AU-8",
+            "AU-4",
+            "SC-45"
+          ],
+          "acierto@1": true,
+          "acierto@3": true,
+          "acierto@5": true
+        },
+        {
+          "id": "rag-07",
+          "recuperados": [
+            "IR-1",
+            "IR-2",
+            "CP-2",
+            "IR-8"
+          ],
+          "acierto@1": true,
+          "acierto@3": true,
+          "acierto@5": true
+        },
+        {
+          "id": "rag-08",
+          "recuperados": [
+            "IR-6",
+            "IR-9",
+            "IR-9",
+            "IR-4"
+          ],
+          "acierto@1": true,
+          "acierto@3": true,
+          "acierto@5": true
+        },
+        {
+          "id": "rag-09",
+          "recuperados": [
+            "AT-2",
+            "AT-1",
+            "AT-2",
+            "IA-1"
+          ],
+          "acierto@1": true,
+          "acierto@3": true,
+          "acierto@5": true
+        },
+        {
+          "id": "rag-10",
+          "recuperados": [
+            "AT-3",
+            "AT-3",
+            "AT-3",
+            "AT-3"
+          ],
+          "acierto@1": true,
+          "acierto@3": true,
+          "acierto@5": true
+        },
+        {
+          "id": "rag-11",
+          "recuperados": [
+            "IA-5",
+            "IA-5",
+            "IA-5",
+            "SC-13"
+          ],
+          "acierto@1": true,
+          "acierto@3": true,
+          "acierto@5": true
+        },
+        {
+          "id": "rag-12",
+          "recuperados": [
+            "PM-5",
+            "MA-3",
+            "CM-8",
+            "SI-1"
+          ],
+          "acierto@3": true,
+          "acierto@5": true
+        },
+        {
+          "id": "rag-13",
+          "recuperados": [
+            "PL-1",
+            "MA-1",
+            "CA-7",
+            "PS-1"
+          ]
+        },
+        {
+          "id": "rag-14",
+          "recuperados": [
+            "AC-10",
+            "MA-3",
+            "SC-35",
+            "RA-5"
+          ],
+          "acierto@5": true
+        },
+        {
+          "id": "rag-15",
+          "recuperados": [
+            "MA-7",
+            "AC-4",
+            "CP-7",
+            "SC-36"
+          ],
+          "acierto@5": true
+        },
+        {
+          "id": "rag-16",
+          "recuperados": [
+            "MA-3",
+            "AC-10",
+            "AC-5",
+            "SC-36"
+          ],
+          "acierto@5": true
+        },
+        {
+          "id": "rag-17",
+          "recuperados": [
+            "IA-1",
+            "SI-7",
+            "SA-20",
+            "PL-1"
+          ],
+          "acierto@3": true,
+          "acierto@5": true
+        },
+        {
+          "id": "rag-18",
+          "recuperados": [
+            "MA-3",
+            "SI-3",
+            "SI-3",
+            "SC-35"
+          ],
+          "acierto@3": true,
+          "acierto@5": true
+        },
+        {
+          "id": "rag-19",
+          "recuperados": [
+            "PE-3",
+            "AC-10",
+            "MA-3",
+            "PE-3"
+          ],
+          "acierto@1": true,
+          "acierto@3": true,
+          "acierto@5": true
+        },
+        {
+          "id": "rag-20",
+          "recuperados": [
+            "PL-1",
+            "PM-19",
+            "AU-1",
+            "PS-1"
+          ],
+          "acierto@1": true,
+          "acierto@3": true,
+          "acierto@5": true
+        },
+        {
+          "id": "rag-21",
+          "recuperados": [
+            "SA-9",
+            "MA-3",
+            "PS-7",
+            "AC-20"
+          ],
+          "acierto@1": true,
+          "acierto@3": true,
+          "acierto@5": true
+        },
+        {
+          "id": "rag-22",
+          "recuperados": [
+            "AC-10",
+            "SC-36",
+            "AC-6",
+            "AC-24"
+          ],
+          "acierto@1": true,
+          "acierto@3": true,
+          "acierto@5": true
+        }
+      ]
+    },
+    {
+      "modelo": "nomic-embed-text",
+      "acierto@1": 0.227,
+      "acierto@3": 0.364,
+      "acierto@5": 0.409,
+      "acierto_exacto@5": 0.227,
+      "latencia_consulta_ms": 347.1,
+      "tiempo_ingesta_s": 166.3,
+      "fragmentos": 918,
+      "recursos": {
+        "memoria_gb": null,
+        "tamano_disco_gb": null
+      },
+      "detalle": [
+        {
+          "id": "rag-01",
+          "recuperados": [
+            "MA-6",
+            "IA-11",
+            "AC-14",
+            "SI-13"
+          ],
+          "acierto@3": true,
+          "acierto@5": true
+        },
+        {
+          "id": "rag-02",
+          "recuperados": [
+            "PM-7",
+            "PE-18",
+            "MA-6",
+            "PE-14"
+          ]
+        },
+        {
+          "id": "rag-03",
+          "recuperados": [
+            "SI-21",
+            "PM-15",
+            "PE-17",
+            "PM-20"
+          ]
+        },
+        {
+          "id": "rag-04",
+          "recuperados": [
+            "AU-10",
+            "CP-10",
+            "CP-10",
+            "CP-7"
+          ],
+          "acierto@3": true,
+          "acierto@5": true
+        },
+        {
+          "id": "rag-05",
+          "recuperados": [
+            "SI-21",
+            "CA-5",
+            "MA-4",
+            "MA-6"
+          ]
+        },
+        {
+          "id": "rag-06",
+          "recuperados": [
+            "AU-10",
+            "SI-14",
+            "AU-14",
+            "AC-14"
+          ],
+          "acierto@1": true,
+          "acierto@3": true,
+          "acierto@5": true
+        },
+        {
+          "id": "rag-07",
+          "recuperados": [
+            "IR-4",
+            "IR-6",
+            "IR-1",
+            "IR-5"
+          ],
+          "acierto@1": true,
+          "acierto@3": true,
+          "acierto@5": true
+        },
+        {
+          "id": "rag-08",
+          "recuperados": [
+            "IR-5",
+            "AU-10",
+            "IR-6",
+            "IR-1"
+          ],
+          "acierto@1": true,
+          "acierto@3": true,
+          "acierto@5": true
+        },
+        {
+          "id": "rag-09",
+          "recuperados": [
+            "PM-22",
+            "PM-21",
+            "PM-25",
+            "SI-21"
+          ]
+        },
+        {
+          "id": "rag-10",
+          "recuperados": [
+            "PS-9",
+            "AC-14",
+            "PM-29",
+            "AT-3"
+          ],
+          "acierto@5": true
+        },
+        {
+          "id": "rag-11",
+          "recuperados": [
+            "CP-9",
+            "AU-10",
+            "SR-11",
+            "SR-9"
+          ]
+        },
+        {
+          "id": "rag-12",
+          "recuperados": [
+            "SI-22",
+            "SI-11",
+            "AC-14",
+            "PM-5"
+          ]
+        },
+        {
+          "id": "rag-13",
+          "recuperados": [
+            "PM-32",
+            "MA-6",
+            "CA-5",
+            "CA-7"
+          ]
+        },
+        {
+          "id": "rag-14",
+          "recuperados": [
+            "AU-10",
+            "RA-5",
+            "CM-4",
+            "CA-8"
+          ],
+          "acierto@3": true,
+          "acierto@5": true
+        },
+        {
+          "id": "rag-15",
+          "recuperados": [
+            "PE-16",
+            "PE-18",
+            "MP-5",
+            "PE-23"
+          ]
+        },
+        {
+          "id": "rag-16",
+          "recuperados": [
+            "MA-6",
+            "AC-14",
+            "PM-7",
+            "SR-10"
+          ]
+        },
+        {
+          "id": "rag-17",
+          "recuperados": [
+            "SC-38",
+            "CP-12",
+            "SC-24",
+            "PM-32"
+          ]
+        },
+        {
+          "id": "rag-18",
+          "recuperados": [
+            "PM-29",
+            "PM-17",
+            "PM-16",
+            "PM-10"
+          ]
+        },
+        {
+          "id": "rag-19",
+          "recuperados": [
+            "PE-8",
+            "PE-6",
+            "PE-2",
+            "PE-17"
+          ],
+          "acierto@1": true,
+          "acierto@3": true,
+          "acierto@5": true
+        },
+        {
+          "id": "rag-20",
+          "recuperados": [
+            "PM-17",
+            "PM-12",
+            "PM-19",
+            "PM-3"
+          ],
+          "acierto@1": true,
+          "acierto@3": true,
+          "acierto@5": true
+        },
+        {
+          "id": "rag-21",
+          "recuperados": [
+            "SI-6",
+            "SI-14",
+            "AU-10",
+            "MA-6"
+          ]
+        },
+        {
+          "id": "rag-22",
+          "recuperados": [
+            "MA-6",
+            "PM-19",
+            "PM-7",
+            "PS-9"
+          ]
+        }
+      ]
+    }
+  ],
+  "recomendado": "bge-m3"
+}
