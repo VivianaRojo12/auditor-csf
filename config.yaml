@@ -1,62 +1,57 @@
-# Configuración activa de Sentinela.
-# Los valores marcados como "calibrado" los ajusta evaluacion/ejecutar_todo.py a partir de los experimentos.
-
 servicio:
   host: 127.0.0.1
   puerto: 8000
   directorio_datos: datos_runtime
-  origenes_web: ["http://127.0.0.1:8080", "http://localhost:8080"]
-
-proveedor_modelos: ollama          # ollama | simulado (solo pruebas automáticas)
+  origenes_web:
+  - http://127.0.0.1:8080
+  - http://localhost:8080
+proveedor_modelos: ollama
 url_ollama: http://127.0.0.1:11434
-
 modelos:
   rutas:
     simple:
-      modelo: qwen2.5:3b           # calibrado
+      modelo: qwen2.5:3b
       tiempo_limite_s: 240
     compleja:
-      modelo: qwen2.5:7b           # calibrado
+      modelo: llama3.2:3b
       tiempo_limite_s: 420
-  respaldo: llama3.2:3b            # calibrado
+  respaldo: llama3.2:3b
   modelo_reformulacion: qwen2.5:3b
   reintentos: 1
   num_ctx: 8192
   temperatura: 0.1
   max_tokens_salida: 900
-
 embeddings:
-  modelo: bge-m3                   # calibrado
+  modelo: bge-m3
   prefijos:
-    nomic-embed-text: {consulta: "search_query: ", documento: "search_document: "}
-    mxbai-embed-large: {consulta: "Represent this sentence for searching relevant passages: ", documento: ""}
-    bge-m3: {consulta: "", documento: ""}
+    nomic-embed-text:
+      consulta: 'search_query: '
+      documento: 'search_document: '
+    mxbai-embed-large:
+      consulta: 'Represent this sentence for searching relevant passages: '
+      documento: ''
+    bge-m3:
+      consulta: ''
+      documento: ''
   lote: 32
-
 base_vectorial:
-  tipo: chroma                     # chroma | memoria
+  tipo: chroma
   coleccion: sentinela
-
 fragmentacion:
-  tamano: 800                      # calibrado
-  solapamiento: 120                # calibrado
-
+  tamano: 800
+  solapamiento: 120
 recuperacion:
-  k: 4                             # calibrado
-  umbral: 0.35                     # calibrado: debajo de este puntaje el fragmento se descarta
+  k: 4
+  umbral: 0.35
   max_fragmentos_prompt: 12
-
 agente:
-  umbral_recuperacion_pobre: 0.50  # calibrado
+  umbral_recuperacion_pobre: 0.5
   max_iteraciones: 3
-
 cache:
   ttl_horas: 24
-  umbral_semantico: 0.95           # calibrado
-
+  umbral_semantico: 0.95
 enrutador:
   umbral_complejidad: 4
-
 guardrails:
   max_comandos: 300
   max_bytes: 400000
