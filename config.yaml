@@ -36,7 +36,7 @@ embeddings:
   lote: 32
 base_vectorial:
   tipo: chroma
-  coleccion: sentinela
+  coleccion: controles_80053
 fragmentacion:
   tamano: 800
   solapamiento: 120
@@ -53,6 +53,4 @@ cache:
 enrutador:
   umbral_complejidad: 4
 guardrails:
-  max_comandos: 300
   max_bytes: 400000
-  min_proporcion_shell: 0.5

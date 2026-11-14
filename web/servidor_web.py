@@ -25,7 +25,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         if self.path in ("/", "/index.html"):
             html = (RAIZ / "index.html").read_text(encoding="utf-8").replace(
                 "<script src=\"app.js\"></script>",
-                f"<script>window.SENTINELA_API={API!r};</script>\n  <script src=\"app.js\"></script>")
+                f"<script>window.AUDITOR_API={API!r};</script>\n  <script src=\"app.js\"></script>")
             cuerpo = html.encode("utf-8")
             self.send_response(200)
             self.send_header("Content-Type", "text/html; charset=utf-8")

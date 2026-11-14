@@ -1,4 +1,4 @@
-# Configuración del proyecto en Windows, sin Claude Code.
+# Configuración del proyecto en Windows.
 # Ejecutar desde la carpeta del proyecto con:
 #   powershell -ExecutionPolicy Bypass -File configurar.ps1
 # Hace: entorno virtual, dependencias, descarga del catálogo NIST, construcción del corpus y pruebas.

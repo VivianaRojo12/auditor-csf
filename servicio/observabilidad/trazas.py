@@ -28,7 +28,7 @@ class _FormatoJSON(logging.Formatter):
         base = {
             "ts": time.strftime("%Y-%m-%dT%H:%M:%S", time.localtime(registro.created)),
             "nivel": registro.levelname,
-            "capa": registro.name.removeprefix("sentinela."),
+            "capa": registro.name.removeprefix("auditor."),
             "mensaje": registro.getMessage(),
             "traza_id": _traza_actual.get(),
         }
@@ -45,10 +45,10 @@ class Observador:
     def configurar(self, almacen: AlmacenEventos, directorio_bitacoras: Path) -> None:
         self._almacen = almacen
         directorio_bitacoras.mkdir(parents=True, exist_ok=True)
-        raiz = logging.getLogger("sentinela")
+        raiz = logging.getLogger("auditor")
         raiz.setLevel(logging.INFO)
         raiz.handlers.clear()
-        archivo = logging.FileHandler(directorio_bitacoras / "sentinela.jsonl", encoding="utf-8")
+        archivo = logging.FileHandler(directorio_bitacoras / "auditor.jsonl", encoding="utf-8")
         archivo.setFormatter(_FormatoJSON())
         consola = logging.StreamHandler()
         consola.setFormatter(_FormatoJSON())
@@ -79,7 +79,7 @@ class Observador:
             "datos": datos,
             "ts": time.time(),
         }
-        logging.getLogger(f"sentinela.{capa}").info(evento, extra={"datos": {**datos, "duracion_ms": registro["duracion_ms"]}})
+        logging.getLogger(f"auditor.{capa}").info(evento, extra={"datos": {**datos, "duracion_ms": registro["duracion_ms"]}})
         if self._almacen is not None:
             self._almacen.guardar_evento(registro)
 

@@ -21,5 +21,5 @@
 ## Documentos de prueba
 
 Las políticas y procedimientos que se auditan en la demostración y en la evaluación
-(`corpus/propios/`, `evaluacion/datos/`) son documentos ficticios creados para este proyecto. No
+(`ejemplos/`, `evaluacion/datos/`) son documentos ficticios creados para este proyecto. No
 pertenecen a ninguna organización real y no contienen datos personales reales.

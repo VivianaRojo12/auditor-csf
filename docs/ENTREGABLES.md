@@ -10,7 +10,7 @@ Dónde está cada cosa que pide el proyecto.
 | Informe técnico (PDF) | `docs/informe_tecnico.md` → se arma en `docs/informe_tecnico.html` y se imprime a PDF |
 | Documentación de la API (OpenAPI) | generada por el servicio en `/docs` y `/openapi.json` |
 | Conjuntos de prueba y resultados | `evaluacion/datos/` y `evaluacion/resultados/` |
-| Presentación | `docs/presentacion.html` y guion en `docs/guion_video.md` |
+| Presentación | `docs/presentacion.html` |
 | Ficha de la idea | `docs/ficha_idea.md` |
 
 ## Requisitos obligatorios (*)
@@ -26,7 +26,7 @@ Dónde está cada cosa que pide el proyecto.
 | R7 Servicio con API REST | `servicio/api/app.py` (FastAPI, OpenAPI) |
 | R8 Capa de presentación web | `web/` consume solo la API por HTTP |
 | R9 Evaluación | `evaluacion/evaluar_sistema.py` |
-| R10 Reproducibilidad | `README.md`, `requisitos.txt`, `PROMPT_MAESTRO.md` |
+| R10 Reproducibilidad | `README.md`, `COMO_EJECUTAR.md`, `requisitos.txt`, `configurar.ps1`, `evaluar.ps1` |
 | R11 Informe técnico | `docs/informe_tecnico.md` |
 | R12 Más allá de un chatbot | función principal = informe; chat solo secundario |
 

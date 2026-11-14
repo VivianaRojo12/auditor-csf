@@ -1,4 +1,4 @@
-# Evaluación completa con modelos reales (Windows, sin Claude Code).
+# Evaluación completa con modelos reales (Windows).
 #   powershell -ExecutionPolicy Bypass -File evaluar.ps1
 # Compara modelos, calibra config.yaml, reindexa el corpus, evalúa el sistema, genera figuras y arma el
 # informe. Tarda de 1 a 3 horas en CPU: deja la laptop conectada a la corriente y sin suspenderse.

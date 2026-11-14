@@ -1,4 +1,4 @@
-# Cómo ejecutar el proyecto sin Claude Code (Windows)
+# Cómo ejecutar el proyecto (Windows)
 
 Todo se hace con tres scripts. Ábrelos desde PowerShell, dentro de la carpeta del proyecto. Si PowerShell
 bloquea la ejecución, usa el prefijo `powershell -ExecutionPolicy Bypass -File`.
@@ -39,22 +39,13 @@ powershell -ExecutionPolicy Bypass -File iniciar.ps1
 Abre el servicio (puerto 8000) y la web (puerto 8080) y lanza el navegador. Para detener, cierra las dos
 ventanas de Python.
 
-## Grabación del video
+## Presentación
 
-Con el sistema arriba, graba la pantalla siguiendo `docs\guion_video.md` y usa las diapositivas
-`docs\presentacion.html` (se navegan con las flechas). Sube el video a Drive al final.
+Las diapositivas están en `docs\presentacion.html` (se navegan con las flechas).
 
-## Subir el repositorio a GitHub
+## Obtener el código
 
-**Opción A (más simple):** crea en github.com un repositorio **vacío** llamado `auditor-csf` (sin README).
-Avísame el nombre y yo subo todo el proyecto por ti desde aquí.
-
-**Opción B (desde tu laptop):** si tienes Git instalado y tu sesión de GitHub configurada:
 ```
-git init
-git add .
-git commit -m "Auditor de políticas de seguridad contra NIST CSF 2.0"
-git branch -M main
-git remote add origin https://github.com/VivianaRojo12/auditor-csf.git
-git push -u origin main
+git clone https://github.com/VivianaRojo12/auditor-csf.git
+cd auditor-csf
 ```

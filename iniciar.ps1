@@ -1,4 +1,4 @@
-# Levanta el sistema para la demostración (Windows, sin Claude Code).
+# Levanta el sistema para la demostración (Windows).
 #   powershell -ExecutionPolicy Bypass -File iniciar.ps1
 # Abre el servicio (API, puerto 8000) y la aplicación web (puerto 8080) en dos ventanas y abre el navegador.
 

@@ -1,6 +1,6 @@
 "use strict";
 // Capa de presentación. Consume ÚNICAMENTE la API por HTTP (R8): nunca llama a modelos ni a la base vectorial.
-const API = (window.SENTINELA_API || location.origin.replace(/:\d+$/, ":8000"));
+const API = (window.AUDITOR_API || location.origin.replace(/:\d+$/, ":8000"));
 
 const $ = (s) => document.querySelector(s);
 const el = (t, cls, html) => { const e = document.createElement(t); if (cls) e.className = cls;

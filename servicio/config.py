@@ -80,14 +80,14 @@ class Configuracion(BaseModel):
 
 
 def cargar(ruta: str | Path | None = None) -> Configuracion:
-    ruta = Path(ruta or os.environ.get("SENTINELA_CONFIG", RAIZ / "config.yaml"))
+    ruta = Path(ruta or os.environ.get("AUDITOR_CONFIG", RAIZ / "config.yaml"))
     datos = yaml.safe_load(ruta.read_text(encoding="utf-8"))
-    if os.environ.get("SENTINELA_PROVEEDOR"):
-        datos["proveedor_modelos"] = os.environ["SENTINELA_PROVEEDOR"]
-    if os.environ.get("SENTINELA_DATOS"):
-        datos["servicio"]["directorio_datos"] = os.environ["SENTINELA_DATOS"]
-    if os.environ.get("SENTINELA_VECTORIAL"):
-        datos["base_vectorial"]["tipo"] = os.environ["SENTINELA_VECTORIAL"]
+    if os.environ.get("AUDITOR_PROVEEDOR"):
+        datos["proveedor_modelos"] = os.environ["AUDITOR_PROVEEDOR"]
+    if os.environ.get("AUDITOR_DATOS"):
+        datos["servicio"]["directorio_datos"] = os.environ["AUDITOR_DATOS"]
+    if os.environ.get("AUDITOR_VECTORIAL"):
+        datos["base_vectorial"]["tipo"] = os.environ["AUDITOR_VECTORIAL"]
     return Configuracion(**datos)
 
 

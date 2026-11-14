@@ -26,4 +26,4 @@ recuperacion: {k: 4, umbral: 0.30, max_fragmentos_prompt: 12}
 agente: {umbral_recuperacion_pobre: 0.33, max_iteraciones: 3}
 cache: {ttl_horas: 24, umbral_semantico: 0.95}
 enrutador: {umbral_complejidad: 4}
-guardrails: {max_comandos: 300, max_bytes: 400000, min_proporcion_shell: 0.5}
+guardrails: {max_bytes: 400000}

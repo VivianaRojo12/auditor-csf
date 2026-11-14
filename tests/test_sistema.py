@@ -17,7 +17,7 @@ RAIZ = Path(__file__).resolve().parent.parent
 @pytest.fixture(scope="module")
 def cliente():
     import os
-    os.environ["SENTINELA_CONFIG"] = str(RAIZ / "tests" / "config_pruebas.yaml")
+    os.environ["AUDITOR_CONFIG"] = str(RAIZ / "tests" / "config_pruebas.yaml")
     shutil.rmtree("/tmp/auditor_pruebas", ignore_errors=True)
     from servicio.config import cargar
     from servicio.contenedor import Contenedor
