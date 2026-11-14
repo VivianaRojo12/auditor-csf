@@ -29,7 +29,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from evaluacion._comun import RESULTADOS, cargar, guardar  # noqa: E402
 from evaluacion.evaluar_sistema import _generar, asegurar_corpus  # noqa: E402
 from servicio.contenedor import Contenedor  # noqa: E402
-from servicio.dominio import Seccion  # noqa: E402
+from servicio.dominio import Seccion, normalizar_control  # noqa: E402
 
 ESQUEMA = {
     "type": "object",
@@ -70,7 +70,7 @@ def juez(c: Contenedor, modelo: str, controles: str, respuesta: str) -> int:
 
 
 def _norm(control: str) -> str:
-    return re.sub(r"\s+", "", str(control).upper()).split("(")[0]
+    return normalizar_control(control)
 
 
 def hallazgos(respuesta: str) -> list[dict]:
@@ -116,6 +116,8 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--casos", type=int, default=22)
     ap.add_argument("--juez", default="qwen2.5:7b")
+    ap.add_argument("--ruta", default="simple", choices=["simple", "compleja"],
+                    help="ruta (modelo) que genera el análisis")
     args = ap.parse_args()
 
     c = Contenedor()
@@ -128,11 +130,11 @@ def main() -> None:
         for i, caso in enumerate(casos, 1):
             t0 = time.time()
             rec = c.contexto.recuperar(caso["texto"])
-            fuentes, _ = c.contexto.armar_fuentes(rec.fragmentos)
+            fuentes, refs = c.contexto.armar_fuentes(rec.fragmentos)
             recuperados = {_norm(f.control) for f in rec.fragmentos}
             seccion = Seccion(1, caso["id"], caso["texto"])
-            con = _generar(c, seccion, fuentes)
-            sin = _generar(c, seccion, "(sin controles de referencia)")
+            con = _generar(c, seccion, fuentes, [r["control"] for r in refs], ruta=args.ruta)
+            sin = _generar(c, seccion, "(sin controles de referencia)", ruta=args.ruta)
             ok_con, n_con = citas_validas(con, recuperados)
             ok_sin, n_sin = citas_validas(sin, recuperados)
             d = {"id": caso["id"],

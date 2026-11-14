@@ -171,7 +171,9 @@ disponible se deriva de las tablas anteriores y queda registrada, ya calibrada, 
 se divide en secciones por encabezados para auditarlo sección por sección, y el corpus se fragmenta por
 tamaño con solapamiento conservando metadatos de control, familia y función (ADR-05). La recuperación usa
 similitud coseno con k y umbral calibrados; los fragmentos bajo el umbral se descartan. El prompt limita la
-respuesta al contexto, numera las fuentes y pide citar la etiqueta de la que proviene cada hallazgo.
+respuesta al contexto y agrupa los fragmentos por control, de modo que cada fuente se identifica con el
+control al que pertenece (por ejemplo, [IA-2]). La salida estructurada restringe el campo control_id a los
+controles recuperados y exige copiar el requisito del control que sustenta cada hallazgo (ADR-07).
 
 **C3 Guardrails.** Tres verificaciones de entrada (documento válido, inyección de instrucciones, datos
 personales) y tres de salida (esquema válido, fuentes válidas/apego al contexto, sin datos personales), cada
@@ -196,9 +198,9 @@ retroalimentación se liga a la traza y se incluye en el análisis de la evaluac
 
 ## 9. Registro de decisiones de arquitectura (ADR)
 
-Se registran seis ADR (carpeta `docs/adr/`): selección de modelos (ADR-01), criterio del enrutador
+Se registran siete ADR (carpeta `docs/adr/`): selección de modelos (ADR-01), criterio del enrutador
 (ADR-02), umbral de la caché semántica (ADR-03), verificaciones de los guardrails (ADR-04), fragmentación
-(ADR-05) y diseño del ciclo de agente (ADR-06). Cada uno sigue la plantilla de contexto, decisión,
+(ADR-05), diseño del ciclo de agente (ADR-06) y fuentes etiquetadas por control (ADR-07). Cada uno sigue la plantilla de contexto, decisión,
 alternativas, evidencia y consecuencias, y se apoya en un atributo de calidad.
 
 ## 10. Evaluación y análisis de resultados

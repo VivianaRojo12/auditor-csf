@@ -69,7 +69,9 @@ class Configuracion(BaseModel):
 
     def huella(self) -> str:
         """Huella de los parámetros que cambian el resultado de un análisis (forma parte de la llave de caché)."""
+        from servicio.contexto.prompts import VERSION_PROMPTS
         relevante = {
+            "prompts": VERSION_PROMPTS,
             "modelos": self.modelos.model_dump(),
             "embeddings": self.embeddings.modelo,
             "fragmentacion": self.fragmentacion,

@@ -224,19 +224,19 @@
     "acierto@1": 0.591,
     "acierto@3": 0.727,
     "acierto@5": 0.864,
-    "fidelidad_con_rag": 1.33,
+    "fidelidad_con_rag": 2.09,
     "fidelidad_sin_rag": 0.86,
     "fidelidad_original": {
-      "con_rag": 1.0,
-      "sin_rag": 4.82
+      "con_rag": 1.33,
+      "sin_rag": 0.86
     },
     "juez": "qwen2.5:7b",
-    "calificaciones_validas_con": 21,
+    "calificaciones_validas_con": 22,
     "calificaciones_validas_sin": 22,
-    "citas_validas_con_rag": 0.324,
+    "citas_validas_con_rag": 1.0,
     "citas_validas_sin_rag": 0.0,
-    "hallazgos_promedio_con": 1.55,
-    "hallazgos_promedio_sin": 0.82,
+    "hallazgos_promedio_con": 1.77,
+    "hallazgos_promedio_sin": 1.09,
     "metodo": "ambas respuestas calificadas contra los mismos controles recuperados; contexto completo",
     "n_casos_fidelidad": 22
   },

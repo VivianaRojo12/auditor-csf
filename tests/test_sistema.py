@@ -112,6 +112,39 @@ def test_documentos_crud(cliente):
     assert borrado["fragmentos_eliminados"] >= 1
 
 
+def test_esquema_restringe_controles_citados():
+    from servicio.contexto.prompts import esquema_analisis
+    props = esquema_analisis(["IA-2", "AC-17", "IA-2"])["properties"]["hallazgos"]["items"]["properties"]
+    assert props["control_id"]["enum"] == ["IA-2", "AC-17"]
+    assert "enum" not in esquema_analisis([])["properties"]["hallazgos"]["items"]["properties"]["control_id"]
+
+
+def test_normalizar_control():
+    from servicio.dominio import normalizar_control
+    for texto in ("IA-2", "ia-2", "IA 2", "[IA-2]", "IA-2 Identification and Authentication"):
+        assert normalizar_control(texto) == "IA-2"
+    assert normalizar_control("F1") == "F1"
+
+
+def test_guardrail_descarta_controles_no_recuperados():
+    from servicio.guardrails.verificaciones import verificar_salida
+    datos = {"hallazgos": [{"control_id": "ia-2"}, {"control_id": "F1"}, {"control_id": "SC-7"}]}
+    ok, _, _ = verificar_salida(datos, {"IA-2", "AC-17"})
+    assert ok
+    assert [h["control_id"] for h in datos["hallazgos"]] == ["IA-2"]
+
+
+def test_fuentes_agrupadas_por_control(cliente):
+    _, c = cliente
+    from servicio.dominio import Fragmento
+    frags = [Fragmento(f"ia-2::{i}", f"texto {i}", {"control": "IA-2", "titulo": "IA-2 Auth", "funcion": "PR",
+                                                     "parte": i}, 0.7 - i / 10) for i in range(2)]
+    frags.append(Fragmento("ac-17::0", "otro", {"control": "AC-17", "titulo": "AC-17 Remote", "funcion": "PR"}, 0.5))
+    texto, refs = c.contexto.armar_fuentes(frags)
+    assert [r["control"] for r in refs] == ["IA-2", "AC-17"]
+    assert texto.startswith("[IA-2] Auth") and "[AC-17] Remote" in texto
+
+
 def test_enrutador_distingue_complejidad():
     from servicio.modelos.enrutador import Enrutador
     from servicio.dominio import Seccion

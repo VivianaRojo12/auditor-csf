@@ -67,7 +67,8 @@ def main(modelos: list[str] | None = None) -> dict:
                 seccion = Seccion(1, caso["id"], caso["texto"])
                 mensajes = [{"role": "system", "content": prompts.SISTEMA_AUDITOR},
                             {"role": "user", "content": prompts.prompt_analisis(seccion, fuentes)}]
-                r, ms = cronometrar(servidor.generar, modelo, mensajes, prompts.ESQUEMA_ANALISIS,
+                esquema = prompts.esquema_analisis([x["control"] for x in refs])
+                r, ms = cronometrar(servidor.generar, modelo, mensajes, esquema,
                                     conf.modelos.rutas["compleja"].tiempo_limite_s,
                                     {"temperature": 0.1, "num_ctx": conf.modelos.num_ctx, "num_predict": 900})
                 latencias.append(ms)

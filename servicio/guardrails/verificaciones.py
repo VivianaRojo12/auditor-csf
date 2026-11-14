@@ -6,7 +6,7 @@ Entrada (3 verificaciones):
   - inyeccion_instrucciones: detecta intentos de inyección de instrucciones en el texto del documento.
 Salida (3 verificaciones):
   - esquema_valido: la respuesta del modelo es el JSON esperado.
-  - fuentes_validas: cada hallazgo cita una fuente realmente recuperada (apego al contexto).
+  - fuentes_validas: cada hallazgo cita un control realmente recuperado (apego al contexto).
   - sin_datos_personales: la respuesta no filtra datos personales.
 
 Cada verificación declara su política ante la falla: bloquear, anonimizar, reintentar o mensaje seguro.
@@ -16,7 +16,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 
-from servicio.dominio import ResultadoGuardrail
+from servicio.dominio import ResultadoGuardrail, normalizar_control
 from servicio.observabilidad.trazas import observador
 
 PATRONES_PERSONALES: list[tuple[str, str, re.Pattern]] = [
@@ -91,7 +91,8 @@ def anonimizar(texto: str) -> tuple[str, list[str]]:
     return texto, encontrados
 
 
-def verificar_salida(datos: dict | None, etiquetas_validas: set[str]) -> tuple[bool, list[ResultadoGuardrail], str]:
+def verificar_salida(datos: dict | None, controles_validos: set[str]) -> tuple[bool, list[ResultadoGuardrail], str]:
+    """controles_validos: identificadores de los controles entregados como fuente (p. ej. {'IA-2', 'AC-17'})."""
     resultados: list[ResultadoGuardrail] = []
 
     # 1. esquema válido (política: reintentar)
@@ -102,11 +103,13 @@ def verificar_salida(datos: dict | None, etiquetas_validas: set[str]) -> tuple[b
         return False, resultados, "reintentar"
 
     # 2. fuentes válidas / apego al contexto (política: descartar hallazgo sin fuente válida)
-    hallazgos = datos["hallazgos"]
-    invalidos = [h for h in hallazgos if h.get("fuente") not in etiquetas_validas]
+    hallazgos = [h for h in datos["hallazgos"] if isinstance(h, dict)]
+    validos = {normalizar_control(c) for c in controles_validos}
+    for h in hallazgos:
+        h["control_id"] = normalizar_control(h.get("control_id", ""))
+    invalidos = [h for h in hallazgos if h["control_id"] not in validos]
     apego = not invalidos
-    if invalidos:
-        datos["hallazgos"] = [h for h in hallazgos if h.get("fuente") in etiquetas_validas]
+    datos["hallazgos"] = [h for h in hallazgos if h["control_id"] in validos]
     resultados.append(_registrar(ResultadoGuardrail(
         "fuentes_validas", apego, "descartar_sin_fuente",
         "" if apego else f"{len(invalidos)} hallazgo(s) sin fuente válida, descartados")))

@@ -48,10 +48,10 @@ class AdaptadorSimulado:
         elif "puntaje" in propiedades:
             salida = {"puntaje": 4, "justificacion": "Evaluación simulada de fidelidad."}
         else:
-            # Extrae las fuentes recuperadas del prompt: "[F1] AC-2 Título (función PR, puntaje ...)"
-            fuentes = re.findall(r"\[(F\d+)\]\s+([A-Z]{2}-\d+)", prompt)
+            # Extrae las fuentes recuperadas del prompt: "[AC-2] Título (función PR, similitud ...)"
+            fuentes = re.findall(r"^\[([A-Z]{2}-\d+)\]", prompt, re.M)
             hallazgos = []
-            for i, (fid, control) in enumerate(fuentes[:4]):
+            for i, control in enumerate(fuentes[:4]):
                 estado = ["cubierto", "parcial", "ausente"][i % 3]
                 hallazgos.append({
                     "control_id": control, "estado": estado,
@@ -59,7 +59,7 @@ class AdaptadorSimulado:
                     "descripcion": f"Correspondencia simulada con el control {control}.",
                     "evidencia": "" if estado == "ausente" else "fragmento citado de la sección",
                     "recomendacion": f"Alinear la redacción con {control} (recomendación simulada).",
-                    "fuente": fid})
+                    "requisito": f"requisito simulado de {control}"})
             salida = {"resumen": "Resumen simulado de la sección auditada.", "hallazgos": hallazgos}
         texto = json.dumps(salida, ensure_ascii=False)
         return RespuestaModelo(texto=texto, modelo=modelo, tokens_entrada=len(prompt) // 4,

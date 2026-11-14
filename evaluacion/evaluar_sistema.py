@@ -42,9 +42,9 @@ def eval_rag(c: Contenedor) -> dict:
         for k in ac:
             if acierto_en_k(controles, caso["familia"], k):
                 ac[k] += 1
-        fuentes, _ = c.contexto.armar_fuentes(rec.fragmentos)
+        fuentes, refs = c.contexto.armar_fuentes(rec.fragmentos)
         seccion = Seccion(1, caso["id"], caso["texto"])
-        con = _generar(c, seccion, fuentes)
+        con = _generar(c, seccion, fuentes, [r["control"] for r in refs])
         sin = _generar(c, seccion, "(sin controles de referencia)")
         fid_con.append(_juez(c, caso["texto"], con, fuentes))
         fid_sin.append(_juez(c, caso["texto"], sin, "(sin contexto)"))
@@ -57,11 +57,12 @@ def eval_rag(c: Contenedor) -> dict:
             "fidelidad_sin_rag": round(sum(fs) / len(fs), 2) if fs else None}
 
 
-def _generar(c, seccion, fuentes):
+def _generar(c, seccion, fuentes, controles=None, ruta="simple"):
+    """Genera el análisis igual que el orquestador: con controles, el esquema restringe control_id a ellos."""
     try:
         r = c.gateway.generar([{"role": "system", "content": prompts.SISTEMA_AUDITOR},
                                {"role": "user", "content": prompts.prompt_analisis(seccion, fuentes)}],
-                              ruta="simple", esquema=prompts.ESQUEMA_ANALISIS, usar_respaldo=True)
+                              ruta=ruta, esquema=prompts.esquema_analisis(controles), usar_respaldo=True)
         return r.texto
     except Exception:
         return "{}"

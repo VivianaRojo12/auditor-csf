@@ -15,7 +15,7 @@ from servicio.cache.cache import CacheConsultas
 from servicio.config import Configuracion
 from servicio.contexto import prompts
 from servicio.contexto.rag import ConstructorContexto
-from servicio.dominio import ErrorModelo, Hallazgo, Seccion
+from servicio.dominio import ErrorModelo, Hallazgo, Seccion, normalizar_control
 from servicio.guardrails import verificaciones
 from servicio.modelos.enrutador import Enrutador
 from servicio.modelos.gateway import GatewayModelos
@@ -103,7 +103,8 @@ class Orquestador:
             recuperacion = self._contexto.recuperar(nueva)
 
         fuentes_texto, refs = self._contexto.armar_fuentes(recuperacion.fragmentos)
-        etiquetas = {r["etiqueta"] for r in refs}
+        controles = [r["control"] for r in refs]
+        esquema = prompts.esquema_analisis(controles)
 
         # C6 gateway -> modelo
         try:
@@ -111,7 +112,7 @@ class Orquestador:
                 respuesta = self._gateway.generar(
                     [{"role": "system", "content": prompts.SISTEMA_AUDITOR},
                      {"role": "user", "content": prompts.prompt_analisis(seccion_saneada, fuentes_texto)}],
-                    ruta=decision.ruta, esquema=prompts.ESQUEMA_ANALISIS, usar_respaldo=True)
+                    ruta=decision.ruta, esquema=esquema, usar_respaldo=True)
         except ErrorModelo as error:
             observador.registrar("orquestacion", "consulta_completada", (time.perf_counter() - inicio) * 1000,
                                  estado="error", iteraciones_agente=iteraciones)
@@ -122,16 +123,16 @@ class Orquestador:
 
         # C3 guardrails de salida (con un reintento si el esquema es inválido)
         datos = self._parsear(respuesta.texto)
-        ok, _res, politica = verificaciones.verificar_salida(datos, etiquetas)
+        ok, _res, politica = verificaciones.verificar_salida(datos, set(controles))
         if not ok and politica == "reintentar":
             with observador.medir("orquestacion", "etapa", etapa="reintento_salida"):
                 respuesta = self._gateway.generar(
                     [{"role": "system", "content": prompts.SISTEMA_AUDITOR},
                      {"role": "user", "content": prompts.prompt_analisis(seccion_saneada, fuentes_texto) +
                       "\n\nResponde SOLO con el objeto JSON válido indicado."}],
-                    ruta=decision.ruta, esquema=prompts.ESQUEMA_ANALISIS, usar_respaldo=True)
+                    ruta=decision.ruta, esquema=esquema, usar_respaldo=True)
             datos = self._parsear(respuesta.texto)
-            ok, _res, politica = verificaciones.verificar_salida(datos, etiquetas)
+            ok, _res, politica = verificaciones.verificar_salida(datos, set(controles))
         if not ok:
             datos = {"resumen": "No se obtuvo una respuesta válida del modelo.", "hallazgos": []}
 
@@ -165,17 +166,18 @@ class Orquestador:
             return None
 
     def _construir_hallazgos(self, datos: dict, seccion: Seccion, refs: list[dict]) -> list[Hallazgo]:
-        por_etiqueta = {r["etiqueta"]: r for r in refs}
-        por_control = {r["control"]: r for r in refs}
+        por_control = {normalizar_control(r["control"]): r for r in refs}
         salida: list[Hallazgo] = []
         for h in datos.get("hallazgos", []):
-            ref = por_etiqueta.get(h.get("fuente")) or por_control.get(h.get("control_id"), {})
+            control = normalizar_control(h.get("control_id", ""))
+            ref = por_control.get(control, {})
             salida.append(Hallazgo(
                 seccion=seccion.indice, seccion_titulo=seccion.encabezado(),
-                control_id=h.get("control_id", ref.get("control", "")),
+                control_id=ref.get("control", control),
                 funcion=ref.get("funcion", ""), estado=h.get("estado", "parcial"),
                 gravedad=h.get("gravedad", "media"), descripcion=h.get("descripcion", ""),
                 evidencia=h.get("evidencia", ""), recomendacion=h.get("recomendacion", ""),
-                fuente={"control": ref.get("control", h.get("control_id", "")), "titulo": ref.get("titulo", ""),
+                requisito=h.get("requisito", ""),
+                fuente={"control": ref.get("control", control), "titulo": ref.get("titulo", ""),
                         "puntaje": ref.get("puntaje"), "fragmento_id": ref.get("fragmento_id")}))
         return salida

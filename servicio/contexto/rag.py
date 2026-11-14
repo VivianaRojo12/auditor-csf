@@ -75,11 +75,19 @@ class ConstructorContexto:
 
     # --- armado del prompt ---
     def armar_fuentes(self, fragmentos: list[Fragmento]) -> tuple[str, list[dict]]:
+        """Agrupa los fragmentos por control: una fuente por control, etiquetada con su identificador (p. ej.
+        IA-2). Así el modelo cita directamente el control y no una etiqueta intermedia, y un mismo control no
+        aparece repetido como dos fuentes distintas."""
+        grupos: dict[str, list[Fragmento]] = {}
+        for f in fragmentos[: self._conf.recuperacion["max_fragmentos_prompt"]]:
+            grupos.setdefault(f.control, []).append(f)  # dict conserva el orden: mejor puntaje primero
         lineas, refs = [], []
-        for i, f in enumerate(fragmentos[: self._conf.recuperacion["max_fragmentos_prompt"]], 1):
-            etiqueta = f"F{i}"
-            lineas.append(f"[{etiqueta}] {f.control} {f.metadatos.get('titulo', '')} "
-                          f"(función {f.funcion}, puntaje {f.puntaje:.2f})\n{f.texto}")
-            refs.append({"etiqueta": etiqueta, "control": f.control, "titulo": f.metadatos.get("titulo", ""),
-                         "funcion": f.funcion, "puntaje": f.puntaje, "fragmento_id": f.id})
+        for control, partes in grupos.items():
+            primero = partes[0]
+            titulo = primero.metadatos.get("titulo", "")
+            nombre = titulo.removeprefix(control).strip()
+            cuerpo = "\n[...]\n".join(p.texto for p in sorted(partes, key=lambda p: p.metadatos.get("parte", 0)))
+            lineas.append(f"[{control}] {nombre} (función {primero.funcion}, similitud {primero.puntaje:.2f})\n{cuerpo}")
+            refs.append({"etiqueta": control, "control": control, "titulo": titulo, "funcion": primero.funcion,
+                         "puntaje": primero.puntaje, "fragmento_id": primero.id})
         return "\n\n".join(lineas), refs

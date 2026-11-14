@@ -128,6 +128,7 @@ function tarjetaHallazgo(h) {
      <span class="etiqueta estado-${esc(h.estado)}">${esc(h.estado)}</span>
      <span class="etiqueta">gravedad ${esc(h.gravedad)}</span>
      <span class="etiqueta">función ${esc(h.funcion || "-")}</span>`));
+  if (h.requisito) d.appendChild(el("p", "fuente", "<strong>Requisito del control:</strong> " + esc(h.requisito)));
   d.appendChild(el("p", null, esc(h.descripcion)));
   if (h.evidencia) d.appendChild(el("p", "evi", "“" + esc(h.evidencia) + "”"));
   if (h.recomendacion) d.appendChild(el("p", null, "<strong>Recomendación:</strong> " + esc(h.recomendacion)));

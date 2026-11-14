@@ -150,8 +150,9 @@ def crear_app(contenedor: Contenedor | None = None) -> FastAPI:
                     "fuentes": [], "traza_id": traza}
         try:
             r = c.gateway.generar(
-                [{"role": "system", "content": "Responde solo con la información de las fuentes y cita sus "
-                  "etiquetas (F1, F2). Si no está en las fuentes, dilo. Responde en español."},
+                [{"role": "system", "content": "Responde solo con la información de las fuentes y cita el "
+                  "identificador del control entre corchetes, por ejemplo [IA-2]. Si no está en las fuentes, dilo. "
+                  "Responde en español."},
                  {"role": "user", "content": f"Pregunta: {p.pregunta}\n\nFuentes:\n{fuentes_texto}"}],
                 ruta="simple", usar_respaldo=True, max_tokens=500)
         except ErrorModelo as e:

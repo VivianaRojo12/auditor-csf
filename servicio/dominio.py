@@ -1,6 +1,7 @@
 """Tipos de dominio compartidos por todas las capas (núcleo compartido, sin dependencias)."""
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -78,6 +79,13 @@ class Hallazgo:
     evidencia: str              # cita del documento del usuario
     recomendacion: str
     fuente: dict[str, Any] = field(default_factory=dict)  # control del corpus + puntaje
+    requisito: str = ""         # frase del control que sustenta el hallazgo
+
+
+def normalizar_control(texto: str) -> str:
+    """Identificador canónico de un control: 'ia-2', 'IA 2', '[IA-2]' o 'IA-2 Identification...' -> 'IA-2'."""
+    m = re.search(r"\b([A-Za-z]{2})\s*-?\s*(\d{1,2})\b", str(texto))
+    return f"{m.group(1).upper()}-{int(m.group(2))}" if m else str(texto).strip().upper()
 
 
 class ErrorModelo(Exception):
