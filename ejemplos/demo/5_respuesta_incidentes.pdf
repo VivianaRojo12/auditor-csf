@@ -1,0 +1,57 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 842] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Length 1855 >>
+stream
+BT
+/F2 16 Tf 1 0 0 1 60 769 Tm (Procedimiento de respuesta a incidentes de seguridad) Tj
+/F1 10 Tf 1 0 0 1 60 754 Tm (Clínica San Rafael \(ficticia\) - versión 2.0) Tj
+/F2 12 Tf 1 0 0 1 60 727 Tm (1. Propósito) Tj
+/F1 11 Tf 1 0 0 1 60 711 Tm (Definir cómo se detectan, reportan, contienen y resuelven los incidentes de seguridad) Tj
+/F1 11 Tf 1 0 0 1 60 695 Tm (que afecten la información de pacientes y los sistemas de la clínica.) Tj
+/F2 12 Tf 1 0 0 1 60 668 Tm (2. Equipo de respuesta) Tj
+/F1 11 Tf 1 0 0 1 60 652 Tm (El equipo de respuesta lo integran el responsable de seguridad, el jefe de) Tj
+/F1 11 Tf 1 0 0 1 60 636 Tm (infraestructura y un representante del área legal. Sus datos de contacto se actualizan) Tj
+/F1 11 Tf 1 0 0 1 60 620 Tm (cada trimestre y el equipo recibe capacitación anual en manejo de incidentes.) Tj
+/F2 12 Tf 1 0 0 1 60 593 Tm (3. Reporte de incidentes) Tj
+/F1 11 Tf 1 0 0 1 60 577 Tm (Cualquier empleado que detecte un comportamiento sospechoso debe reportarlo por correo) Tj
+/F1 11 Tf 1 0 0 1 60 561 Tm (al responsable de seguridad dentro de las primeras dos horas. Los incidentes que) Tj
+/F1 11 Tf 1 0 0 1 60 545 Tm (involucren datos personales se notifican a la autoridad competente conforme a la ley.) Tj
+/F2 12 Tf 1 0 0 1 60 518 Tm (4. Contención y erradicación) Tj
+/F1 11 Tf 1 0 0 1 60 502 Tm (Ante un incidente confirmado, el equipo aísla los equipos afectados de la red, conserva) Tj
+/F1 11 Tf 1 0 0 1 60 486 Tm (evidencia de los registros del sistema y elimina la causa raíz antes de restablecer el) Tj
+/F1 11 Tf 1 0 0 1 60 470 Tm (servicio.) Tj
+/F2 12 Tf 1 0 0 1 60 443 Tm (5. Lecciones aprendidas) Tj
+/F1 11 Tf 1 0 0 1 60 427 Tm (Al cerrar cada incidente se elabora un informe con la cronología, el impacto y las) Tj
+/F1 11 Tf 1 0 0 1 60 411 Tm (mejoras propuestas, que se revisa con la dirección médica.) Tj
+ET
+endstream
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000251 00000 n 
+0000000348 00000 n 
+0000000450 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+2357
+%%EOF

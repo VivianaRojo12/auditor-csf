@@ -1,0 +1,56 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 842] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Length 1682 >>
+stream
+BT
+/F2 16 Tf 1 0 0 1 60 769 Tm (Política de respaldo y recuperación de información) Tj
+/F1 10 Tf 1 0 0 1 60 754 Tm (Cooperativa Valle Alto \(ficticia\) - versión 1.2) Tj
+/F2 12 Tf 1 0 0 1 60 727 Tm (1. Objetivo) Tj
+/F1 11 Tf 1 0 0 1 60 711 Tm (Establecer los lineamientos para respaldar la información crítica de la cooperativa y) Tj
+/F1 11 Tf 1 0 0 1 60 695 Tm (recuperarla ante fallas, errores humanos o incidentes de seguridad.) Tj
+/F2 12 Tf 1 0 0 1 60 668 Tm (2. Alcance) Tj
+/F1 11 Tf 1 0 0 1 60 652 Tm (Aplica a los servidores del sistema de ahorro y crédito, a la base de datos de socios y) Tj
+/F1 11 Tf 1 0 0 1 60 636 Tm (a los equipos del área de cobranza.) Tj
+/F2 12 Tf 1 0 0 1 60 609 Tm (3. Respaldos) Tj
+/F1 11 Tf 1 0 0 1 60 593 Tm (El área de sistemas realiza un respaldo completo cada domingo y respaldos incrementales) Tj
+/F1 11 Tf 1 0 0 1 60 577 Tm (cada noche. Las copias se guardan en un disco externo dentro de la misma sala de) Tj
+/F1 11 Tf 1 0 0 1 60 561 Tm (servidores. Los respaldos no se cifran porque el disco permanece bajo llave.) Tj
+/F2 12 Tf 1 0 0 1 60 534 Tm (4. Pruebas de restauración) Tj
+/F1 11 Tf 1 0 0 1 60 518 Tm (Cuando se requiere, el encargado de sistemas restaura algún archivo para comprobar que) Tj
+/F1 11 Tf 1 0 0 1 60 502 Tm (el respaldo funciona. No existe un calendario de pruebas ni se documentan los) Tj
+/F1 11 Tf 1 0 0 1 60 486 Tm (resultados.) Tj
+/F2 12 Tf 1 0 0 1 60 459 Tm (5. Plan de contingencia) Tj
+/F1 11 Tf 1 0 0 1 60 443 Tm (En caso de desastre, la gerencia decidirá en el momento las acciones a seguir según la) Tj
+/F1 11 Tf 1 0 0 1 60 427 Tm (gravedad del evento. No se han definido tiempos objetivo de recuperación.) Tj
+ET
+endstream
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000251 00000 n 
+0000000348 00000 n 
+0000000450 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+2184
+%%EOF
