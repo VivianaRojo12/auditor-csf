@@ -56,10 +56,17 @@ def tabla_sistema(d) -> str:
         return "_Pendiente de ejecutar la evaluación._"
     rag, g, ca, ag = d.get("rag", {}), d.get("guardrails", {}), d.get("cache", {}), d.get("agente", {})
     des = d.get("desempeno", {}).get("consultas", {}).get("latencia_ms", {})
+    original = rag.get("fidelidad_original") or {}
+    # El 32.4 % de citas válidas previo al ADR-07 viene de la evaluación inicial (docs/adr/ADR-07-fuentes-por-control.md).
+    pct = lambda x: f"{round(x * 100, 1)} %" if isinstance(x, (int, float)) else x
     filas = [
-        ["RAG: acierto@3 (familia)", rag.get("acierto@3")],
-        ["RAG: fidelidad con contexto (0-5)", rag.get("fidelidad_con_rag")],
+        ["RAG: acierto@1 / @3 / @5 (familia)", f"{rag.get('acierto@1')} / {rag.get('acierto@3')} / {rag.get('acierto@5')}"],
+        ["RAG: fidelidad con contexto (0-5)", f"{rag.get('fidelidad_con_rag')}"
+                                              + (f" (antes del ADR-07: {original['con_rag']})" if original.get("con_rag") else "")],
         ["RAG: fidelidad sin contexto (0-5)", rag.get("fidelidad_sin_rag")],
+        ["RAG: citas válidas con contexto (ADR-07)", f"{pct(rag.get('citas_validas_con_rag'))} (antes del ADR-07: 32.4 %)"
+                                                     if rag.get("citas_validas_con_rag") is not None else None],
+        ["RAG: citas válidas sin contexto", pct(rag.get("citas_validas_sin_rag"))],
         ["Guardrails: bloqueos correctos", g.get("bloqueos_correctos_pct")],
         ["Guardrails: falsos positivos", g.get("falsos_positivos_pct")],
         ["Enrutador: aciertos", d.get("enrutador", {}).get("aciertos_pct")],

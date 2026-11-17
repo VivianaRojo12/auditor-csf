@@ -15,7 +15,7 @@ from fastapi import Body, FastAPI, File, HTTPException, Query, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, StreamingResponse
 
-from servicio.api.esquemas import Pregunta, Retroalimentacion
+from servicio.api.esquemas import Pregunta, ResultadoPractica, Retroalimentacion
 from servicio.config import RAIZ
 from servicio.contexto import prompts
 from servicio.contexto.catalogo import Catalogo
@@ -212,6 +212,24 @@ def crear_app(contenedor: Contenedor | None = None) -> FastAPI:
             return catalogo.cuestionario(familia, n)
         except ValueError as e:
             raise HTTPException(400, str(e))
+
+    @app.post("/cuestionarios/resultados", tags=["práctica"])
+    def registrar_resultado(r: ResultadoPractica):
+        """Registra de forma anónima el resultado de un cuestionario (familias y aciertos, sin datos de la
+        persona) para mostrar en las métricas en qué familias se falla más."""
+        familias = {f["familia"] for f in catalogo.familias()}
+        por_familia = {k.upper(): v for k, v in r.por_familia.items()}
+        desconocidas = sorted(set(por_familia) - familias)
+        if desconocidas or (r.familia and r.familia.upper() not in familias):
+            raise HTTPException(400, f"Familia desconocida: {', '.join(desconocidas) or r.familia}")
+        total = sum(v.total for v in por_familia.values())
+        if total > 20:
+            raise HTTPException(400, "Un cuestionario tiene como máximo 20 preguntas")
+        observador.nueva_traza()
+        observador.registrar("practica", "cuestionario", familia=r.familia.upper() if r.familia else None,
+                             preguntas=total, aciertos=sum(v.aciertos for v in por_familia.values()),
+                             por_familia={k: v.model_dump() for k, v in por_familia.items()})
+        return {"registrado": True}
 
     @app.get("/evaluacion", tags=["observabilidad"])
     def evaluacion():

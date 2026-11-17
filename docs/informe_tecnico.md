@@ -5,6 +5,17 @@ subtitulo: "Producto inteligente en capas con modelos de lenguaje, embeddings y 
 
 # Auditor de políticas de seguridad contra NIST CSF 2.0
 
+## Control de versiones
+
+| Versión | Fecha | Cambios en el sistema | Cambios en este informe |
+|---|---|---|---|
+| 1.0 | 07-nov-2026 | Primera versión completa: servicio en capas (C1 a C7, T1 y T2), API REST, aplicación web, ingesta del corpus de 301 controles, seis ADR, diez diagramas y pruebas con un proveedor simulado. | Primera redacción: idea, arquitectura, comportamiento, selección de modelos y diseño por capa. |
+| 1.1 | 07-nov-2026 | Evaluación completa y calibración de `config.yaml`; la ruta compleja pasa de `qwen2.5:7b` a `llama3.2:3b`. Reevaluación de la fidelidad con un procedimiento corregido: ambas respuestas (con y sin RAG) se califican contra los mismos controles, el juez (`qwen2.5:7b`) recibe el contexto completo y se agrega la métrica de citas válidas, que no depende del juez. | Se llenan las tablas de resultados (secciones 7 y 10) y se agregan las figuras 11 a 14. |
+| 1.2 | 13-nov-2026 | Limpieza de la configuración y de los nombres heredados del prototipo anterior: variables de entorno `AUDITOR_*`, colección `controles_80053`, bitácora `auditor.jsonl` y retiro de dos guardrails que no aplicaban al dominio. | Sin cambios de fondo. |
+| 1.3 | 14-nov-2026 | ADR-07: las fuentes se etiquetan con su control y la salida solo puede citar controles recuperados; nuevo campo `requisito` en cada hallazgo. Las citas válidas con RAG suben de 32.4 % a 100 % y la fidelidad de 1.33 a 2.09. Ejemplos de demostración en Markdown, PDF y DOCX. | Se describe el ADR-07 (secciones 8 y 9); el registro pasa de seis a siete ADR y se regenera la figura 13. |
+| 1.4 | 16-nov-2026 | Avance de la auditoría sección por sección (`POST /auditorias/stream`) con cancelación; las rutas de auditoría ya no bloquean el servidor; en la web, carga por arrastre, selector de ejemplos y estado del servicio con el componente que falta. | Sin cambios de fondo. |
+| 1.5 | 17-nov-2026 | Nueva interfaz web: barra lateral que separa lo del usuario de lo del sistema, informe con filtros y exportación, catálogo de controles, cuestionarios de práctica con datos oficiales, resultados de práctica anónimos en las métricas, recuadro de progreso que permite navegar mientras se audita e ilustraciones de gatos como guía visual. | Se agregan este control de versiones, la sección 5.1 (capa de presentación), las funciones de catálogo y práctica en los requisitos y en el diseño por capa, las citas válidas en la tabla de resultados, el trabajo futuro y la declaración de las imágenes. |
+
 ## 1. Resumen
 
 Este informe describe el diseño y la construcción de un producto inteligente que audita políticas y
@@ -14,8 +25,9 @@ entrega un informe de brechas con el estado de cada control, su gravedad, la evi
 redacción corregida; no es un chatbot. El servicio implementa una arquitectura en capas con las capas
 obligatorias de una aplicación de IA en producción —construcción de contexto con RAG, guardrails,
 enrutador y gateway de modelos, caché, orquestación con ciclo de agente, observabilidad y
-retroalimentación— y se expone como una API REST consumida por una aplicación web. Todo se ejecuta de forma
-local sobre modelos servidos con Ollama.
+retroalimentación— y se expone como una API REST consumida por una aplicación web. La web muestra el avance
+de cada auditoría mientras el usuario navega y suma un catálogo de controles y cuestionarios de práctica que
+usan solo datos oficiales del corpus. Todo se ejecuta de forma local sobre modelos servidos con Ollama.
 
 ## 2. La idea del producto (ficha)
 
@@ -31,7 +43,9 @@ local sobre modelos servidos con Ollama.
 | Cómo se medirá su valor | Acierto@k de la recuperación, fidelidad al contexto con y sin RAG, porcentaje de brechas correctamente identificadas sobre un conjunto de prueba, y reducción de tiempo frente a la revisión manual |
 
 La función principal entrega un artefacto (el informe) dentro del flujo de trabajo del usuario; la
-conversación sobre los controles es una función secundaria (endpoint `/preguntas`).
+conversación sobre los controles es una función secundaria (endpoint `/preguntas`). Como apoyo, el producto
+incluye un catálogo de los 301 controles con su texto oficial y cuestionarios de práctica para estudiarlos;
+ninguno de los dos usa un modelo de lenguaje, de modo que la respuesta correcta siempre es un dato del corpus.
 
 ## 3. Dominio del problema y corpus
 
@@ -52,7 +66,9 @@ multilingüe; esto se aborda en la selección de modelos (sección 7) y en el AD
 
 **Requisitos funcionales:** cargar un documento (PDF, DOCX, Markdown o texto); auditar por secciones contra
 el corpus; emitir un informe con estado, gravedad, evidencia, control citado y recomendación; agrupar por
-función del CSF; registrar retroalimentación; exponer métricas; responder consultas puntuales con fuentes.
+función del CSF; mostrar el avance de la auditoría y permitir cancelarla; exportar el informe (PDF, CSV y
+JSON); registrar retroalimentación; exponer métricas; responder consultas puntuales con fuentes; consultar el
+catálogo de controles; practicar con cuestionarios y registrar sus resultados de forma anónima.
 
 **Atributos de calidad priorizados y medibles:**
 
@@ -109,6 +125,30 @@ Responsabilidad e interfaz de cada capa:
 | C7 Acceso a datos y modelos | Adaptadores a Ollama, base vectorial y SQLite | interfaces en `datos/interfaces.py` |
 | T1 Observabilidad | Traza por consulta, bitácoras por capa, métricas | `observador` |
 | T2 Retroalimentación | Opinión del usuario ligada a la traza | `ServicioRetroalimentacion` |
+
+### 5.1 Capa de presentación
+
+La aplicación web (`web/`) es una sola página que consume únicamente la API por HTTP. Una barra lateral
+separa lo que usa quien audita (Auditar, Último informe, Catálogo de controles, Practicar y Preguntar) de lo
+que muestra cómo funciona el sistema (Métricas y configuración, y Créditos). Las secciones cambian sin
+recargar la página, por lo que una auditoría sigue corriendo mientras el usuario navega.
+
+- **Avance en vivo.** La web usa `POST /auditorias/stream`, que envía en NDJSON un evento al empezar y al
+  terminar cada sección, y el informe completo al final. Un recuadro en la barra lateral muestra solo el
+  progreso; los detalles técnicos de la sección (ruta, modelo, caché, guardrails, iteraciones del agente y
+  traza) se ven aparte, en un bloque plegable. Si el usuario cierra la conexión, el servicio se detiene al
+  terminar la sección en curso.
+- **Informe.** Indicadores, cobertura de las seis funciones (las que no se tocaron aparecen como "Sin
+  evaluar"), hallazgos con filtros por estado, gravedad y función, y exportación a PDF, CSV y JSON.
+- **Catálogo y práctica.** `GET /controles` y `GET /controles/{id}` sirven el texto oficial de cada control;
+  `GET /cuestionarios` arma preguntas de opción múltiple con el identificador, el nombre, la familia y el
+  texto de los controles. Las preguntas nunca usan la función del CSF, porque esa correspondencia es de
+  trabajo y no oficial. El progreso de cada persona se guarda en su navegador y el resultado de cada
+  cuestionario se envía de forma anónima (`POST /cuestionarios/resultados`) para las métricas.
+- **Accesibilidad y funcionamiento local.** Controles nativos navegables con teclado, estados que no dependen
+  solo del color, diseño que se adapta a teléfono y tipografía incluida en el sitio para funcionar sin
+  internet. Las ilustraciones de gatos acompañan los estados (trabajando, listo, error, puntaje) y su origen
+  se declara en la sección 12.
 
 ## 6. Comportamiento
 
@@ -173,7 +213,10 @@ tamaño con solapamiento conservando metadatos de control, familia y función (A
 similitud coseno con k y umbral calibrados; los fragmentos bajo el umbral se descartan. El prompt limita la
 respuesta al contexto y agrupa los fragmentos por control, de modo que cada fuente se identifica con el
 control al que pertenece (por ejemplo, [IA-2]). La salida estructurada restringe el campo control_id a los
-controles recuperados y exige copiar el requisito del control que sustenta cada hallazgo (ADR-07).
+controles recuperados y exige copiar el requisito del control que sustenta cada hallazgo (ADR-07). La misma
+capa lee el corpus para el catálogo y arma los cuestionarios (`servicio/contexto/catalogo.py`): las opciones
+incorrectas se toman de la misma familia y se descartan los requisitos repetidos entre controles, para que
+cada pregunta tenga una sola respuesta correcta.
 
 **C3 Guardrails.** Tres verificaciones de entrada (documento válido, inyección de instrucciones, datos
 personales) y tres de salida (esquema válido, fuentes válidas/apego al contexto, sin datos personales), cada
@@ -191,7 +234,8 @@ vuelve a buscar hasta un máximo de iteraciones (ADR-06).
 
 **T1 Observabilidad.** Identificador de traza por consulta, bitácoras JSON por capa y métricas (latencia por
 capa, aciertos de caché, activaciones de guardrails, modelo elegido, iteraciones de agente). Endpoint
-`/metricas` y `/trazas/{id}`.
+`/metricas` y `/trazas/{id}`. Los resultados de práctica se registran como eventos de esta capa, sin datos
+de la persona, y las métricas muestran las familias con menor tasa de aciertos.
 
 **T2 Retroalimentación.** El usuario califica cada informe (útil / no útil y comentario); la
 retroalimentación se liga a la traza y se incluye en el análisis de la evaluación.
@@ -238,6 +282,11 @@ ciclo de agente).
   el control citado, no cumplimiento integral.
 - **Privacidad y seguridad.** Los guardrails anonimizan datos personales y bloquean inyección; aun así, el
   corpus de entrada no debe contener datos sensibles reales sin anonimizar.
+- **Fidelidad por debajo de la meta.** La fidelidad con RAG (2.09) mejoró con el ADR-07, pero sigue por
+  debajo de la meta de 4; es una limitación del modelo de 3B en el equipo disponible.
+- **Trabajo futuro.** Guardar las auditorías en el servidor para tener un historial y comparar versiones de
+  una política (hoy la web conserva solo el último informe, en el navegador); llevar el progreso de práctica
+  al servidor para que siga a la persona entre equipos.
 
 ## 12. Referencias y anexos
 

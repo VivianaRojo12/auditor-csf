@@ -120,6 +120,29 @@ def test_cuestionario_usa_solo_datos_oficiales(cliente):
     assert cli.get("/cuestionarios", params={"n": 50}).status_code == 422
 
 
+def test_resultados_de_practica_anonimos_en_metricas(cliente):
+    cli, _ = cliente
+    antes = cli.get("/metricas").json()["practica"]
+    r = cli.post("/cuestionarios/resultados", json={"familia": "ac", "por_familia": {"AC": {"aciertos": 3, "total": 10}}})
+    assert r.status_code == 200
+    cli.post("/cuestionarios/resultados", json={"familia": None, "por_familia": {"IR": {"aciertos": 4, "total": 4},
+                                                                                "AC": {"aciertos": 1, "total": 6}}})
+    p = cli.get("/metricas").json()["practica"]
+    assert p["cuestionarios"] == antes["cuestionarios"] + 2
+    assert p["preguntas"] == antes["preguntas"] + 20
+    familias = {f["familia"]: f for f in p["por_familia"]}
+    assert familias["AC"]["aciertos"] >= 4 and familias["AC"]["preguntas"] >= 16
+    # ordenadas de la familia con menos aciertos a la de más
+    tasas = [f["tasa_aciertos"] for f in p["por_familia"]]
+    assert tasas == sorted(tasas)
+    # validaciones: más aciertos que preguntas, familia inexistente, demasiadas preguntas
+    malo = {"por_familia": {"AC": {"aciertos": 5, "total": 3}}}
+    assert cli.post("/cuestionarios/resultados", json=malo).status_code == 422
+    assert cli.post("/cuestionarios/resultados", json={"por_familia": {"ZZ": {"aciertos": 1, "total": 2}}}).status_code == 400
+    largo = {"por_familia": {"AC": {"aciertos": 1, "total": 15}, "IR": {"aciertos": 1, "total": 15}}}
+    assert cli.post("/cuestionarios/resultados", json=largo).status_code == 400
+
+
 def test_evaluacion_resumida(cliente):
     cli, _ = cliente
     e = cli.get("/evaluacion").json()

@@ -847,11 +847,17 @@ function pintarCuestionario() {
 
 function guardarResultado() {
   const P = progreso();
+  const deEste = {};   // aciertos de este cuestionario por familia
   Q.preguntas.forEach((p, i) => {
     const fam = p.explicacion.familia;
+    const acierto = Q.respuestas[i] === p.correcta ? 1 : 0;
     const f = P.familias[fam] || (P.familias[fam] = { aciertos: 0, total: 0 });
-    f.total += 1; if (Q.respuestas[i] === p.correcta) f.aciertos += 1;
+    f.total += 1; f.aciertos += acierto;
+    const e = deEste[fam] || (deEste[fam] = { aciertos: 0, total: 0 });
+    e.total += 1; e.aciertos += acierto;
   });
+  // Resultado anónimo para las métricas del sistema: solo familias y aciertos. Si falla, la práctica sigue igual.
+  postJSON("/cuestionarios/resultados", { familia: Q.familia || null, por_familia: deEste }).catch(() => {});
   const aciertos = Q.respuestas.filter((r, i) => r === Q.preguntas[i].correcta).length;
   P.cuestionarios += 1;
   if (!P.mejor || aciertos / Q.preguntas.length > P.mejor.aciertos / P.mejor.total) P.mejor = { aciertos, total: Q.preguntas.length };
@@ -981,6 +987,7 @@ async function vistaSistema() {
     api("/controles/familias"), fetch(API + "/health").then((r) => r.json())]);
   if (!enVista("sistema") || !$("#sis-cuerpo")) return;
   const M = m.value, C = cfg.value, E = ev.value && ev.value.disponible ? ev.value : null;
+  if (fam.value && !CAT.familias) CAT.familias = fam.value.familias;
   const totalControles = fam.value ? fam.value.familias.reduce((s, f) => s + f.controles, 0) : null;
   const fragmentos = salud.value?.componentes?.base_vectorial?.fragmentos ?? null;
   const indicador = (num, et) => `<div class="indicador"><div class="num" style="font-size:28px">${num}</div><div class="et">${et}</div></div>`;
@@ -1028,8 +1035,24 @@ async function vistaSistema() {
         <p class="nota">Rutas: ${Object.entries(M.enrutador.por_ruta || {}).map(([k, v]) => `${esc(k)} ${v}`).join(", ") || "—"}. Usos del respaldo: ${M.enrutador.usos_respaldo}.</p></section>
       <section class="tarjeta"><h2>Guardrails</h2>
         ${tabla(["Verificación", "Evaluadas", "Activadas"], Object.entries(M.guardrails).map(([k, v]) => [esc(k.replace(/_/g, " ")), v.evaluaciones, v.activaciones]))}</section>
-    </div>` : ""}
+    </div>
+    ${pintarPracticaSistema(M.practica, tabla)}` : ""}
   </div>`;
+}
+
+function pintarPracticaSistema(P, tabla) {
+  if (!P) return "";
+  const nombres = CAT.familias ? Object.fromEntries(CAT.familias.map((f) => [f.familia, f.nombre])) : {};
+  return `<section class="tarjeta"><h2>Práctica</h2>
+    <p class="nota">Resultados anónimos de los cuestionarios: solo familia y aciertos, sin datos de quien practica.</p>
+    ${P.cuestionarios ? `<div class="indicadores">
+      <div class="indicador"><div class="num" style="font-size:28px">${P.cuestionarios}</div><div class="et">Cuestionarios</div></div>
+      <div class="indicador"><div class="num" style="font-size:28px">${P.preguntas}</div><div class="et">Preguntas respondidas</div></div>
+      <div class="indicador"><div class="num" style="font-size:28px">${fmtPct(P.tasa_aciertos)}</div><div class="et">Tasa de aciertos</div></div></div>
+    <h3 style="margin:0;font-size:16px">Familias donde más se falla</h3>
+    ${tabla(["Familia", "Preguntas", "Aciertos", "Tasa de aciertos"], P.por_familia.slice(0, 8).map((f) =>
+      [`${esc(f.familia)}${nombres[f.familia] ? ` – ${esc(nombres[f.familia])}` : ""}`, f.preguntas, f.aciertos, fmtPct(f.tasa_aciertos)]))}`
+    : `<p class="tenue">Aún no hay cuestionarios registrados.</p>`}</section>`;
 }
 
 // ---------------------------------------------------------------------------------------------------

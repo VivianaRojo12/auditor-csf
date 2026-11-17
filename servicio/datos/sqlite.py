@@ -160,6 +160,8 @@ class AlmacenEventosSQLite:
         iteraciones: list[int] = []
         totales: list[float] = []
         estados: dict[str, int] = defaultdict(int)
+        practica = {"cuestionarios": 0, "preguntas": 0, "aciertos": 0}
+        practica_familias: dict[str, dict[str, int]] = defaultdict(lambda: {"preguntas": 0, "aciertos": 0})
         for f in filas:
             datos = json.loads(f["datos"])
             clave = f"{f['capa']}.{f['evento']}"
@@ -183,6 +185,13 @@ class AlmacenEventosSQLite:
                 respaldos += 1
             elif clave == "modelos.ruta":
                 rutas[datos.get("ruta", "?")] += 1
+            elif clave == "practica.cuestionario":
+                practica["cuestionarios"] += 1
+                practica["preguntas"] += datos.get("preguntas", 0)
+                practica["aciertos"] += datos.get("aciertos", 0)
+                for fam, v in (datos.get("por_familia") or {}).items():
+                    practica_familias[fam]["preguntas"] += v.get("total", 0)
+                    practica_familias[fam]["aciertos"] += v.get("aciertos", 0)
             elif clave == "orquestacion.consulta_completada":
                 totales.append(f["duracion_ms"] or 0)
                 iteraciones.append(datos.get("iteraciones_agente", 0))
@@ -203,6 +212,14 @@ class AlmacenEventosSQLite:
                             "latencia_promedio_ms": round(float(np.mean(v["latencias"])), 1) if v["latencias"] else 0}
                         for k, v in modelos.items()},
             "enrutador": {"por_ruta": dict(rutas), "usos_respaldo": respaldos},
+            "practica": {
+                **practica,
+                "tasa_aciertos": round(practica["aciertos"] / practica["preguntas"], 3) if practica["preguntas"] else None,
+                # de la familia con menos aciertos a la de más: dónde se falla más
+                "por_familia": sorted(({"familia": k, **v, "tasa_aciertos": round(v["aciertos"] / v["preguntas"], 3)}
+                                       for k, v in practica_familias.items() if v["preguntas"]),
+                                      key=lambda x: (x["tasa_aciertos"], -x["preguntas"])),
+            },
             "agente": {"iteraciones_promedio": round(float(np.mean(iteraciones)), 2) if iteraciones else 0,
                        "consultas_con_reformulacion": sum(1 for i in iteraciones if i > 1)},
         }
