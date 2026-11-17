@@ -13,7 +13,7 @@ from pathlib import Path
 
 from fastapi import Body, FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, StreamingResponse
 
 from servicio.api.esquemas import Pregunta, Retroalimentacion
 from servicio.contexto import prompts
@@ -21,7 +21,7 @@ from servicio.contexto.documentos import leer_documento
 from servicio.contenedor import Contenedor
 from servicio.dominio import ErrorModelo
 from servicio.observabilidad.trazas import observador
-from servicio.orquestacion.informe import ensamblar
+from servicio.orquestacion.informe import ensamblar, resumen_seccion
 from servicio.retroalimentacion.registro import TrazaInexistente
 
 EXTENSIONES = {"pdf", "docx", "md", "markdown", "txt"}
@@ -111,29 +111,75 @@ def crear_app(contenedor: Contenedor | None = None) -> FastAPI:
         c.cache.invalidar_por_version(c.version_corpus())
         return {"eliminado": doc_id, "fragmentos_eliminados": eliminados, "cache_invalidada": invalidadas}
 
-    @app.post("/auditorias", tags=["auditoría"])
-    async def auditar(archivo: UploadFile = File(...)):
-        """Función principal: audita un documento de política contra los controles indexados y devuelve un
-        informe de brechas por función del CSF 2.0 (no es una conversación)."""
+    # Las rutas de auditoría son funciones normales (def): FastAPI las ejecuta en un hilo aparte, así el análisis
+    # (minutos con Ollama) no bloquea el bucle de eventos y /health sigue respondiendo mientras tanto.
+    def _documento_subido(archivo: UploadFile):
         ext = Path(archivo.filename or "").suffix.lower().lstrip(".")
         if ext not in EXTENSIONES:
             raise HTTPException(400, f"Formato no admitido: .{ext}")
         if c.base.contar() == 0:
             raise HTTPException(503, "El corpus de controles no está indexado. Ejecuta la ingesta primero.")
-        contenido = await archivo.read()
+        contenido = archivo.file.read()
         with tempfile.NamedTemporaryFile(suffix=f".{ext}", delete=False) as tmp:
             tmp.write(contenido)
             ruta = Path(tmp.name)
+        try:
+            return leer_documento(ruta, nombre=archivo.filename)
+        finally:
+            ruta.unlink(missing_ok=True)
+
+    @app.post("/auditorias", tags=["auditoría"])
+    def auditar(archivo: UploadFile = File(...)):
+        """Función principal: audita un documento de política contra los controles indexados y devuelve un
+        informe de brechas por función del CSF 2.0 (no es una conversación)."""
+        doc = _documento_subido(archivo)
         traza = observador.nueva_traza()
         inicio = time.perf_counter()
-        doc = leer_documento(ruta, nombre=archivo.filename)
-        ruta.unlink(missing_ok=True)
         version = c.version_corpus()
         resultados = [c.orquestador.analizar_seccion(s, version) for s in doc.secciones]
         informe = ensamblar(doc.nombre, resultados, traza)
         informe["tiempo_ms"] = round((time.perf_counter() - inicio) * 1000, 1)
         informe["traza_id"] = traza
         return informe
+
+    @app.post("/auditorias/stream", tags=["auditoría"])
+    def auditar_en_vivo(archivo: UploadFile = File(...)):
+        """Igual que POST /auditorias, pero informa el avance sección por sección en NDJSON (una línea JSON por
+        evento): `inicio` (lista de secciones), `seccion` (una por sección terminada, con sus hallazgos),
+        `fin` (informe completo, mismo formato que POST /auditorias) o `error`. Si el cliente se desconecta,
+        el análisis se detiene al terminar la sección en curso."""
+        doc = _documento_subido(archivo)
+        traza = observador.nueva_traza()
+        version = c.version_corpus()
+
+        def linea(evento: dict) -> str:
+            return json.dumps(evento, ensure_ascii=False, default=str) + "\n"
+
+        def eventos():
+            # Cada paso del generador corre en un hilo con su propio contexto: se fija la traza en cada uno.
+            observador.usar_traza(traza)
+            inicio = time.perf_counter()
+            total = len(doc.secciones)
+            yield linea({"tipo": "inicio", "documento": doc.nombre, "traza_id": traza, "total_secciones": total,
+                         "secciones": [{"seccion": s.indice, "titulo": s.encabezado()} for s in doc.secciones]})
+            resultados = []
+            try:
+                for s in doc.secciones:
+                    observador.usar_traza(traza)
+                    r = c.orquestador.analizar_seccion(s, version)
+                    resultados.append(r)
+                    yield linea({"tipo": "seccion", "completadas": len(resultados), "total": total,
+                                 "seccion": resumen_seccion(r), "hallazgos": [h.__dict__ for h in r.hallazgos]})
+                informe = ensamblar(doc.nombre, resultados, traza)
+                informe["tiempo_ms"] = round((time.perf_counter() - inicio) * 1000, 1)
+                yield linea({"tipo": "fin", "informe": informe})
+            except Exception as e:  # el estado HTTP ya se envió; el error viaja como evento
+                observador.registrar("api", "error_streaming", detalle=str(e))
+                yield linea({"tipo": "error", "detalle": str(e) or e.__class__.__name__,
+                             "completadas": len(resultados)})
+
+        return StreamingResponse(eventos(), media_type="application/x-ndjson",
+                                 headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
 
     @app.post("/preguntas", tags=["auditoría"])
     def preguntar(p: Pregunta = Body(...)):

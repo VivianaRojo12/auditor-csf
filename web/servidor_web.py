@@ -15,6 +15,9 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parent
 PUERTO = int(sys.argv[1]) if len(sys.argv) > 1 else int(os.environ.get("PUERTO_WEB", 8080))
 API = sys.argv[2] if len(sys.argv) > 2 else os.environ.get("URL_API", "http://127.0.0.1:8000")
+DEMOS = RAIZ.parent / "ejemplos" / "demo"
+TIPOS = {".md": "text/markdown; charset=utf-8", ".txt": "text/plain; charset=utf-8", ".pdf": "application/pdf",
+         ".docx": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"}
 
 
 class Handler(http.server.SimpleHTTPRequestHandler):
@@ -33,7 +36,25 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(cuerpo)
             return
+        if self.path.startswith("/demo/"):
+            self._servir_demo(self.path[len("/demo/"):])
+            return
         super().do_GET()
+
+    def _servir_demo(self, nombre: str) -> None:
+        """Archivos de demostración de ejemplos/demo (solo los que existen en esa carpeta, sin subrutas)."""
+        disponibles = {p.name: p for p in DEMOS.glob("*") if p.is_file()} if DEMOS.is_dir() else {}
+        archivo = disponibles.get(nombre)
+        if archivo is None:
+            self.send_error(404, "Demostración no encontrada")
+            return
+        cuerpo = archivo.read_bytes()
+        tipo = TIPOS.get(archivo.suffix.lower(), "application/octet-stream")
+        self.send_response(200)
+        self.send_header("Content-Type", tipo)
+        self.send_header("Content-Length", str(len(cuerpo)))
+        self.end_headers()
+        self.wfile.write(cuerpo)
 
     def log_message(self, *a):  # silencio
         pass

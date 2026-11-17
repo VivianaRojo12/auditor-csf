@@ -67,6 +67,12 @@ class Observador:
         return traza
 
     @staticmethod
+    def usar_traza(traza: str) -> None:
+        """Fija una traza existente en el contexto actual (p. ej., en cada paso de una respuesta en streaming,
+        que se ejecuta en hilos con contextos distintos)."""
+        _traza_actual.set(traza)
+
+    @staticmethod
     def traza() -> str | None:
         return _traza_actual.get()
 

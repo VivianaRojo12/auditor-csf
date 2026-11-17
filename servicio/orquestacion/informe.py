@@ -53,10 +53,11 @@ def ensamblar(nombre_documento: str, resultados: list[ResultadoSeccion], traza_i
             brechas, key=lambda h: (-PESO_GRAVEDAD.get(h["gravedad"], 0),
                                     0 if h["estado"] == "ausente" else 1))[:10],
         "hallazgos": hallazgos,
-        "secciones": [
-            {"seccion": r.seccion, "titulo": r.titulo, "resumen": r.resumen, "modelo": r.modelo, "ruta": r.ruta,
-             "cache": r.cache, "iteraciones_agente": r.iteraciones_agente, "bloqueada": r.bloqueada,
-             "mensaje": r.mensaje, "hallazgos": len(r.hallazgos), "fuentes": r.fuentes}
-            for r in resultados
-        ],
+        "secciones": [resumen_seccion(r) for r in resultados],
     }
+
+
+def resumen_seccion(r: ResultadoSeccion) -> dict[str, Any]:
+    return {"seccion": r.seccion, "titulo": r.titulo, "resumen": r.resumen, "modelo": r.modelo, "ruta": r.ruta,
+            "cache": r.cache, "iteraciones_agente": r.iteraciones_agente, "bloqueada": r.bloqueada,
+            "mensaje": r.mensaje, "hallazgos": len(r.hallazgos), "fuentes": r.fuentes}

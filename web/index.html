@@ -28,16 +28,32 @@
   <main>
     <!-- Vista auditar -->
     <section id="vista-auditar" class="vista activa">
+      <div id="ultimo-informe" class="aviso oculto"></div>
       <div class="cargador" id="cargador">
-        <p>Arrastra una política o procedimiento (PDF, DOCX, Markdown o texto) o selecciónalo.</p>
-        <input type="file" id="archivo" accept=".pdf,.docx,.md,.markdown,.txt">
+        <input type="file" id="archivo" class="visual-oculto" accept=".pdf,.docx,.md,.markdown,.txt">
+        <label for="archivo" class="zona" id="zona">
+          <strong>Arrastra aquí una política o procedimiento</strong>
+          <span>o haz clic para seleccionarlo · PDF, DOCX, Markdown o TXT</span>
+        </label>
+        <div id="archivo-elegido" class="archivo-elegido oculto" aria-live="polite"></div>
         <button id="btn-auditar" class="primario" disabled>Auditar documento</button>
-        <div class="ejemplos">
-          <span>¿Sin archivo a la mano?</span>
-          <button id="btn-ejemplo" class="enlace">Usar la política de ejemplo</button>
-        </div>
       </div>
-      <div id="progreso" class="oculto"><div class="barra-indef"></div><span id="progreso-txt">Analizando…</span></div>
+
+      <div class="demos" id="bloque-demos">
+        <h3>¿Sin archivo a la mano? Prueba un ejemplo</h3>
+        <div class="demos-lista" id="demos"></div>
+      </div>
+
+      <div id="progreso" class="progreso oculto" aria-live="polite">
+        <div class="progreso-cab">
+          <span id="progreso-txt">Preparando…</span>
+          <button id="btn-cancelar" class="secundario">Cancelar</button>
+        </div>
+        <div class="medidor"><div id="progreso-barra" style="width:0%"></div></div>
+        <p id="progreso-tiempo" class="meta-linea"></p>
+        <ol id="progreso-secciones" class="pasos"></ol>
+        <div id="hallazgos-vivo"></div>
+      </div>
       <div id="informe" class="oculto"></div>
     </section>
 

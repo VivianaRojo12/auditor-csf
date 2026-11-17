@@ -57,6 +57,31 @@ def test_auditoria_genera_informe(cliente, tmp_path):
         assert h["fuente"]["control"]
 
 
+def test_auditoria_en_vivo_informa_avance(cliente):
+    import json
+    cli, _ = cliente
+    archivo = RAIZ / "ejemplos" / "politica_hidrosur.md"
+    resp = cli.post("/auditorias/stream",
+                    files={"archivo": ("politica.md", archivo.read_bytes(), "text/markdown")})
+    assert resp.status_code == 200
+    eventos = [json.loads(l) for l in resp.text.splitlines() if l.strip()]
+    assert eventos[0]["tipo"] == "inicio" and eventos[-1]["tipo"] == "fin"
+    total = eventos[0]["total_secciones"]
+    secciones = [e for e in eventos if e["tipo"] == "seccion"]
+    assert len(secciones) == total and secciones[-1]["completadas"] == total
+    informe = eventos[-1]["informe"]
+    assert informe["traza_id"] == eventos[0]["traza_id"]
+    assert sum(len(e["hallazgos"]) for e in secciones) == informe["resumen"]["hallazgos_totales"]
+    # los eventos de observabilidad quedan ligados a la traza aunque se generen en otros hilos
+    assert cli.get(f"/trazas/{informe['traza_id']}").status_code == 200
+
+
+def test_auditoria_en_vivo_rechaza_formato(cliente):
+    cli, _ = cliente
+    resp = cli.post("/auditorias/stream", files={"archivo": ("x.exe", b"MZ", "application/octet-stream")})
+    assert resp.status_code == 400
+
+
 def test_cache_exacta_en_segunda_corrida(cliente):
     cli, c = cliente
     texto = b"# Acceso\nEl acceso usa usuario y contrasena de ocho caracteres sin segundo factor."
