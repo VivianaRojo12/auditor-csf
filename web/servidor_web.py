@@ -21,6 +21,9 @@ TIPOS = {".md": "text/markdown; charset=utf-8", ".txt": "text/plain; charset=utf
 
 
 class Handler(http.server.SimpleHTTPRequestHandler):
+    # Windows no siempre registra el tipo de las fuentes web
+    extensions_map = {**http.server.SimpleHTTPRequestHandler.extensions_map, ".woff2": "font/woff2"}
+
     def __init__(self, *a, **k):
         super().__init__(*a, directory=str(RAIZ), **k)
 

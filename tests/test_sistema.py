@@ -76,6 +76,57 @@ def test_auditoria_en_vivo_informa_avance(cliente):
     assert cli.get(f"/trazas/{informe['traza_id']}").status_code == 200
 
 
+def test_auditoria_en_vivo_anuncia_cada_seccion(cliente):
+    import json
+    cli, _ = cliente
+    resp = cli.post("/auditorias/stream", files={"archivo": ("p.md", b"# A\nRespaldo semanal.\n# B\nAcceso con VPN.",
+                                                             "text/markdown")})
+    tipos = [json.loads(l)["tipo"] for l in resp.text.splitlines() if l.strip()]
+    # cada sección se anuncia antes de terminar
+    assert tipos.count("seccion_inicio") == tipos.count("seccion") >= 2
+    for i, t in enumerate(tipos):
+        if t == "seccion":
+            assert tipos[i - 1] == "seccion_inicio"
+
+
+def test_catalogo_de_controles(cliente):
+    cli, _ = cliente
+    todos = cli.get("/controles").json()
+    assert todos["total"] == 301
+    ac = cli.get("/controles", params={"familia": "ac"}).json()
+    assert ac["total"] == 23 and all(x["familia"] == "AC" for x in ac["controles"])
+    assert any(x["id"] == "AC-17" for x in cli.get("/controles", params={"q": "remote"}).json()["controles"])
+    detalle = cli.get("/controles/ac-2").json()
+    assert detalle["nombre"] == "Account Management"
+    assert detalle["texto"][0]["linea"].startswith("a. Define and document")
+    assert cli.get("/controles/zz-99").status_code == 404
+    familias = cli.get("/controles/familias").json()["familias"]
+    assert sum(f["controles"] for f in familias) == 301
+
+
+def test_cuestionario_usa_solo_datos_oficiales(cliente):
+    cli, c = cliente
+    from servicio.config import RAIZ
+    from servicio.contexto.catalogo import Catalogo
+    catalogo = Catalogo(RAIZ / "corpus" / "controles")
+    q = cli.get("/cuestionarios", params={"familia": "IR", "n": 6}).json()
+    assert len(q["preguntas"]) == 6
+    for p in q["preguntas"]:
+        assert len(set(p["opciones"])) == 4
+        control = catalogo.obtener(p["control"])
+        correcta = p["opciones"][p["correcta"]]
+        # la respuesta correcta es un dato del control en el corpus
+        assert correcta in {control.id, control.nombre, f"{control.familia} – {control.familia_nombre}"}
+    assert cli.get("/cuestionarios", params={"n": 50}).status_code == 422
+
+
+def test_evaluacion_resumida(cliente):
+    cli, _ = cliente
+    e = cli.get("/evaluacion").json()
+    if e["disponible"]:
+        assert 0 <= e["rag"]["citas_validas_con_rag"] <= 1
+
+
 def test_auditoria_en_vivo_rechaza_formato(cliente):
     cli, _ = cliente
     resp = cli.post("/auditorias/stream", files={"archivo": ("x.exe", b"MZ", "application/octet-stream")})

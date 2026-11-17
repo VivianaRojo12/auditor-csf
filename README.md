@@ -103,6 +103,7 @@ ajusta la evaluación.
 
 Las respuestas son generadas por modelos de lenguaje y pueden contener errores; cada hallazgo debe
 verificarse contra el control citado. El corpus proviene de fuentes de dominio público (ver
-`corpus/LICENCIAS.md`). En la elaboración de este proyecto se usó un asistente de IA para generar y
+`corpus/LICENCIAS.md`). El logo y las ilustraciones de gatos de la interfaz se obtuvieron de internet, son de
+autoría no identificada y se usan solo con fines académicos y no comerciales (ver `web/img/CREDITOS.md`). En la elaboración de este proyecto se usó un asistente de IA para generar y
 documentar código y para redactar borradores; las decisiones de arquitectura, la revisión y las pruebas son
 responsabilidad de la autora (ver el informe técnico, sección de ética).

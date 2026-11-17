@@ -252,3 +252,10 @@ ciclo de agente).
 En la elaboración del proyecto se usó un asistente de IA para generar y documentar el código y para redactar
 borradores de este informe. Las decisiones de arquitectura, la revisión del código, la ejecución de los
 experimentos y el análisis de los resultados son responsabilidad de la autora.
+
+### Imágenes de la interfaz
+
+El logo y las ilustraciones de gatos que acompañan el progreso y los cuestionarios se obtuvieron de
+internet, son de autoría no identificada y no son obra de la autora. Se usan solo con fines académicos y no
+comerciales; se les eliminó el fondo con la herramienta de código abierto rembg. El detalle de origen,
+procesamiento y uso de cada imagen está en `web/img/CREDITOS.md`.

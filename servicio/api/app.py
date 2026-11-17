@@ -11,12 +11,14 @@ import tempfile
 import time
 from pathlib import Path
 
-from fastapi import Body, FastAPI, File, HTTPException, UploadFile
+from fastapi import Body, FastAPI, File, HTTPException, Query, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, StreamingResponse
 
 from servicio.api.esquemas import Pregunta, Retroalimentacion
+from servicio.config import RAIZ
 from servicio.contexto import prompts
+from servicio.contexto.catalogo import Catalogo
 from servicio.contexto.documentos import leer_documento
 from servicio.contenedor import Contenedor
 from servicio.dominio import ErrorModelo
@@ -36,6 +38,7 @@ def crear_app(contenedor: Contenedor | None = None) -> FastAPI:
                   version="1.0.0")
     app.add_middleware(CORSMiddleware, allow_origins=c.conf.servicio.origenes_web or ["*"],
                        allow_methods=["*"], allow_headers=["*"])
+    catalogo = Catalogo(RAIZ / "corpus" / "controles")
 
     @app.get("/health", tags=["estado"])
     def health():
@@ -145,9 +148,9 @@ def crear_app(contenedor: Contenedor | None = None) -> FastAPI:
     @app.post("/auditorias/stream", tags=["auditoría"])
     def auditar_en_vivo(archivo: UploadFile = File(...)):
         """Igual que POST /auditorias, pero informa el avance sección por sección en NDJSON (una línea JSON por
-        evento): `inicio` (lista de secciones), `seccion` (una por sección terminada, con sus hallazgos),
-        `fin` (informe completo, mismo formato que POST /auditorias) o `error`. Si el cliente se desconecta,
-        el análisis se detiene al terminar la sección en curso."""
+        evento): `inicio` (lista de secciones), `seccion_inicio` (empieza una sección), `seccion` (una por
+        sección terminada, con sus hallazgos), `fin` (informe completo, mismo formato que POST /auditorias) o
+        `error`. Si el cliente se desconecta, el análisis se detiene al terminar la sección en curso."""
         doc = _documento_subido(archivo)
         traza = observador.nueva_traza()
         version = c.version_corpus()
@@ -165,6 +168,8 @@ def crear_app(contenedor: Contenedor | None = None) -> FastAPI:
             resultados = []
             try:
                 for s in doc.secciones:
+                    yield linea({"tipo": "seccion_inicio", "seccion": s.indice, "titulo": s.encabezado(),
+                                 "completadas": len(resultados), "total": total})
                     observador.usar_traza(traza)
                     r = c.orquestador.analizar_seccion(s, version)
                     resultados.append(r)
@@ -180,6 +185,57 @@ def crear_app(contenedor: Contenedor | None = None) -> FastAPI:
 
         return StreamingResponse(eventos(), media_type="application/x-ndjson",
                                  headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
+
+    # --- Catálogo y práctica: solo datos oficiales del corpus, sin modelos ---
+    @app.get("/controles", tags=["catálogo"])
+    def listar_controles(familia: str | None = None, q: str | None = None):
+        """Controles del corpus (ID, nombre, familia y función), con filtro opcional por familia y texto."""
+        controles = catalogo.listar(familia, q)
+        return {"controles": controles, "total": len(controles)}
+
+    @app.get("/controles/familias", tags=["catálogo"])
+    def listar_familias():
+        return {"familias": catalogo.familias()}
+
+    @app.get("/controles/{control_id}", tags=["catálogo"])
+    def obtener_control(control_id: str):
+        """Texto oficial de un control."""
+        control = catalogo.obtener(control_id)
+        if control is None:
+            raise HTTPException(404, "Control no encontrado")
+        return control.detalle()
+
+    @app.get("/cuestionarios", tags=["práctica"])
+    def cuestionario(familia: str | None = None, n: int = Query(10, ge=4, le=20)):
+        """Preguntas de opción múltiple armadas con ID, nombre, familia y texto oficial de los controles."""
+        try:
+            return catalogo.cuestionario(familia, n)
+        except ValueError as e:
+            raise HTTPException(400, str(e))
+
+    @app.get("/evaluacion", tags=["observabilidad"])
+    def evaluacion():
+        """Resumen de la última evaluación del sistema (evaluacion/resultados/sistema.json), si existe."""
+        ruta = RAIZ / "evaluacion" / "resultados" / "sistema.json"
+        if not ruta.exists():
+            return {"disponible": False}
+        d = json.loads(ruta.read_text(encoding="utf-8"))
+        rag, guard, enr = d.get("rag", {}), d.get("guardrails", {}), d.get("enrutador", {})
+        cache, agente = d.get("cache", {}), d.get("agente", {})
+        lat = d.get("desempeno", {}).get("consultas", {}).get("latencia_ms", {})
+        return {
+            "disponible": True,
+            "rag": {k: rag.get(k) for k in ("acierto@1", "acierto@3", "acierto@5", "fidelidad_con_rag",
+                                             "fidelidad_sin_rag", "citas_validas_con_rag", "citas_validas_sin_rag",
+                                             "n_casos", "juez")},
+            "fidelidad_original": rag.get("fidelidad_original"),
+            "guardrails": {k: guard.get(k) for k in ("problematicas", "normales", "bloqueos_correctos_pct",
+                                                    "falsos_positivos_pct")},
+            "enrutador": {k: enr.get(k) for k in ("n", "aciertos_pct")},
+            "cache": {k: cache.get(k) for k in ("latencia_fria_ms", "latencia_caliente_ms", "reduccion_latencia_pct")},
+            "agente": {"iteraciones_promedio": agente.get("iteraciones_promedio")},
+            "latencia_ms": {k: lat.get(k) for k in ("promedio", "p95", "max")},
+        }
 
     @app.post("/preguntas", tags=["auditoría"])
     def preguntar(p: Pregunta = Body(...)):
